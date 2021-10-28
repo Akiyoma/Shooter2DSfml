@@ -3,7 +3,7 @@
 #include "Player.h"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Shooter 2D SFML");
+    sf::RenderWindow window(sf::VideoMode(1024, 768), "Shooter 2D SFML");
     window.setVerticalSyncEnabled(true);
     Player* player;
     player = new Player();
