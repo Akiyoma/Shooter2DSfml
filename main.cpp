@@ -15,14 +15,16 @@ int main() {
                 window.close();
         }
 
+        sf::Vector2<int> move = {0,0};
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-            player->move(-1.f, 0.f);
+            move.x = -1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            player->move(1.f, 0.f);
+            move.x = 1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-            player->move(0.f, -1.f);
+            move.y = -1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            player->move(0.f, 1.f);
+            move.y = 1;
+        player->move(move.x, move.y);
 
         window.clear();
 

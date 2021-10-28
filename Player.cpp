@@ -24,6 +24,7 @@ Player::~Player() {
 
 void Player::move(float dirX, float dirY) {
     sprite.move(speed * dirX, speed * dirY);
+    std::cout<<"X: "<<dirX<<" Y: "<<dirY<<std::endl;
 }
 
 void Player::update() {
