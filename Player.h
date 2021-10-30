@@ -19,7 +19,8 @@ public:
 
     virtual ~Player();
 
-    void move(float dirX, float dirY);
+    void move(sf::Vector2<float> dir);
+    sf::Vector2<float>& normalize(sf::Vector2<float> vec);
 
     void update();
     void render(sf::RenderTarget& target);

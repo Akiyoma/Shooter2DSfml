@@ -15,16 +15,24 @@ int main() {
                 window.close();
         }
 
-        sf::Vector2<int> move = {0,0};
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-            move.x = -1;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            move.x = 1;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-            move.y = -1;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            move.y = 1;
-        player->move(move.x, move.y);
+        // Keys detected
+        bool keyLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
+        bool keyRight = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+        bool keyUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
+        bool keyDown = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+
+        if (keyLeft || keyRight || keyUp || keyDown) {
+            sf::Vector2<float> dir = {0, 0};
+            if (keyLeft)
+                dir.x--;
+            if (keyRight)
+                dir.x++;
+            if (keyUp)
+                dir.y--;
+            if (keyDown)
+                dir.y++;
+            player->move(dir);
+        }
 
         window.clear();
 
