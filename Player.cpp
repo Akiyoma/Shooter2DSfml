@@ -12,7 +12,7 @@ void Player::initSprite() {
 }
 
 Player::Player() {
-    speed = 1.f;
+    speed = 3.f;
 
     initTexture();
     initSprite();
@@ -32,7 +32,7 @@ sf::Vector2<float> &Player::normalize(sf::Vector2<float> vec) {
     float length = vec.x*vec.x + vec.y*vec.y;
     if (length == 0.f)
         return vec;
-    length = sqrt(1.f/length);
+    length = sqrt(speed/length);
     vec.x = vec.x * length;
     vec.y = vec.y * length;
     return vec;
