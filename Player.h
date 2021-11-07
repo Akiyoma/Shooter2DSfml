@@ -24,6 +24,8 @@ public:
 
     void update();
     void render(sf::RenderTarget& target);
+
+    sf::Vector2<float>  moveTo(sf::Vector2<float> dir);
 };
 
 

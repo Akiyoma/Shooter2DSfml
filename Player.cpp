@@ -8,11 +8,11 @@ void Player::initTexture() {
 
 void Player::initSprite() {
     sprite.setTexture(texture);
-    //sprite.scale(.1f, .1f);
+    sprite.scale(1.0f, 1.0f);
 }
 
 Player::Player() {
-    speed = 3.f;
+    speed = 2.f;
 
     initTexture();
     initSprite();
@@ -23,21 +23,33 @@ Player::~Player() {
 }
 
 void Player::move(sf::Vector2<float> dir) {
+    moveTo(dir);
     sf::Vector2<float> vec = normalize(dir);
     sprite.move(vec);
-    std::cout<<"X: "<<vec.x<<" Y: "<<vec.y<<" Length: "<<sqrt(vec.x*vec.x + vec.y*vec.y)<<std::endl;
+    //std::cout<<"X: "<<vec.x<<" Y: "<<vec.y<<" Length: "<<sqrt(vec.x*vec.x + vec.y*vec.y)<<std::endl;
 }
 
 sf::Vector2<float> &Player::normalize(sf::Vector2<float> vec) {
     float length = vec.x*vec.x + vec.y*vec.y;
     if (length == 0.f)
         return vec;
-    length = sqrt(speed/length);
+    length = sqrt(1.f/length)*speed;
     vec.x = vec.x * length;
     vec.y = vec.y * length;
     return vec;
 }
 
+sf::Vector2<float>  Player::moveTo(sf::Vector2<float> dir){
+    this->sprite.getPosition().x;
+
+    float moveToX = sprite.getPosition().x + dir.x;
+    float moveToY = sprite.getPosition().y + dir.y;
+    sf::Vector2<float> moveToVec;
+    moveToVec.x = moveToX;
+    moveToVec.y = moveToY;
+
+    return moveToVec;
+}
 
 void Player::update() {
 
