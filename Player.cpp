@@ -2,7 +2,7 @@
 
 void Player::initTexture() {
     if (!texture.loadFromFile("../Textures/ship.png")) {
-        std::cout << "ERROR::PLAYER::INITTEXTURE::Could not load texture file." << "\n";
+        std::cout << "Failed to load texture for player." << "\n";
     }
 }
 
@@ -12,7 +12,7 @@ void Player::initSprite() {
 }
 
 Player::Player() {
-    speed = 2.f;
+    speed = 240.f;
 
     initTexture();
     initSprite();
@@ -22,10 +22,9 @@ Player::~Player() {
 
 }
 
-void Player::move(sf::Vector2<float> dir) {
-    moveTo(dir);
+void Player::move(sf::Vector2<float> dir, float deltaTime) {
     sf::Vector2<float> vec = normalize(dir);
-    sprite.move(vec);
+    sprite.move(vec * (1.f/60.f));
     //std::cout<<"X: "<<vec.x<<" Y: "<<vec.y<<" Length: "<<sqrt(vec.x*vec.x + vec.y*vec.y)<<std::endl;
 }
 
@@ -40,8 +39,6 @@ sf::Vector2<float> &Player::normalize(sf::Vector2<float> vec) {
 }
 
 sf::Vector2<float>  Player::moveTo(sf::Vector2<float> dir){
-    this->sprite.getPosition().x;
-
     float moveToX = sprite.getPosition().x + dir.x;
     float moveToY = sprite.getPosition().y + dir.y;
     sf::Vector2<float> moveToVec;

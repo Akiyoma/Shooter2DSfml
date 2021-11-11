@@ -5,8 +5,9 @@
 #include <iostream>
 
 class Player {
-private:
+public:
     sf::Sprite sprite;
+private:
     sf::Texture texture;
 
     float speed;
@@ -19,7 +20,7 @@ public:
 
     virtual ~Player();
 
-    void move(sf::Vector2<float> dir);
+    void move(sf::Vector2<float> dir, float deltaTime);
     sf::Vector2<float>& normalize(sf::Vector2<float> vec);
 
     void update();
