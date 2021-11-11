@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "Bullet.h"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1024, 768), "Shooter 2D SFML");
@@ -8,6 +9,8 @@ int main() {
     //window.setFramerateLimit(60);
     Player* player;
     player = new Player();
+
+    std::vector<Bullet*> bullets;
 
     float deltaTime = 1.f/60.f; // 60fps
     sf::Clock clock;
@@ -71,9 +74,24 @@ int main() {
                 }
             }
 
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+                sf::Texture texture;
+                sf::Vector2f pos {player->sprite.getPosition().x, player->sprite.getPosition().y};
+                sf::Vector2f dir {0.f, -1.f};
+                bullets.push_back(new Bullet(texture, pos, dir, 260.f));
+            }
+
+            for (auto *bullet : bullets) {
+                bullet->update(deltaTime);
+            }
+
             window.clear();
 
             player->render(window);
+
+            for (auto *bullet : bullets) {
+                bullet->render(window);
+            }
 
             window.display();
 

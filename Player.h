@@ -20,13 +20,13 @@ public:
 
     virtual ~Player();
 
-    void move(sf::Vector2<float> dir, float deltaTime);
-    sf::Vector2<float>& normalize(sf::Vector2<float> vec);
+    void move(sf::Vector2f dir, float deltaTime);
+    sf::Vector2f& normalize(sf::Vector2f vec);
 
     void update();
     void render(sf::RenderTarget& target);
 
-    sf::Vector2<float>  moveTo(sf::Vector2<float> dir);
+    sf::Vector2f moveTo(sf::Vector2f dir);
 };
 
 

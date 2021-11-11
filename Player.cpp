@@ -22,13 +22,13 @@ Player::~Player() {
 
 }
 
-void Player::move(sf::Vector2<float> dir, float deltaTime) {
+void Player::move(sf::Vector2f dir, float deltaTime) {
     sf::Vector2<float> vec = normalize(dir);
     sprite.move(vec * (1.f/60.f));
     //std::cout<<"X: "<<vec.x<<" Y: "<<vec.y<<" Length: "<<sqrt(vec.x*vec.x + vec.y*vec.y)<<std::endl;
 }
 
-sf::Vector2<float> &Player::normalize(sf::Vector2<float> vec) {
+sf::Vector2f &Player::normalize(sf::Vector2f vec) {
     float length = vec.x*vec.x + vec.y*vec.y;
     if (length == 0.f)
         return vec;
@@ -38,7 +38,7 @@ sf::Vector2<float> &Player::normalize(sf::Vector2<float> vec) {
     return vec;
 }
 
-sf::Vector2<float>  Player::moveTo(sf::Vector2<float> dir){
+sf::Vector2f  Player::moveTo(sf::Vector2f dir){
     float moveToX = sprite.getPosition().x + dir.x;
     float moveToY = sprite.getPosition().y + dir.y;
     sf::Vector2<float> moveToVec;
