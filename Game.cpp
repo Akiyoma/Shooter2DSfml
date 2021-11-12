@@ -1,7 +1,3 @@
-//
-// Created by Jeremy on 12/11/2021.
-//
-
 #include "Game.h"
 
 void Game::initWindow() {
@@ -101,10 +97,10 @@ void Game::update() {
     updatePollEvents();
     updateInput();
 
-    for (auto *bullet : bullets) {
-        bullet->update(deltaTime, *window);
-        if (bullet->isOutsideWindow(*window, bullets)) {
-            bullets.erase(std::remove(bullets.begin(), bullets.end(), bullet), bullets.end());
+    for (int i = 0; i < bullets.size(); ++i) {
+        bullets[i]->update(deltaTime, *window);
+        if (bullets[i]->isOutsideWindow(*window, bullets)) {
+            bullets.erase(bullets.begin()+i);
         }
     }
 }

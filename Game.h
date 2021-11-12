@@ -1,7 +1,3 @@
-//
-// Created by Jeremy on 12/11/2021.
-//
-
 #ifndef SHOOTER2DSFML_GAME_H
 #define SHOOTER2DSFML_GAME_H
 
