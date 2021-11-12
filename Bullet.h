@@ -20,8 +20,10 @@ public:
 
     virtual ~Bullet();
 
-    void update(float deltaTime);
+    void update(float deltaTime, sf::RenderTarget &target);
     void render(sf::RenderTarget& target);
+
+    bool isOutsideWindow(sf::RenderTarget &target, std::vector<Bullet*> bullets);
 };
 
 

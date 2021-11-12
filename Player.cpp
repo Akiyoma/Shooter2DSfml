@@ -24,7 +24,7 @@ Player::~Player() {
 
 void Player::move(sf::Vector2f dir, float deltaTime) {
     sf::Vector2<float> vec = normalize(dir);
-    sprite.move(vec * (1.f/60.f));
+    sprite.move(vec * speed * (1.f/60.f));
     //std::cout<<"X: "<<vec.x<<" Y: "<<vec.y<<" Length: "<<sqrt(vec.x*vec.x + vec.y*vec.y)<<std::endl;
 }
 
@@ -32,7 +32,7 @@ sf::Vector2f &Player::normalize(sf::Vector2f vec) {
     float length = vec.x*vec.x + vec.y*vec.y;
     if (length == 0.f)
         return vec;
-    length = sqrt(1.f/length)*speed;
+    length = sqrt(1.f/length);
     vec.x = vec.x * length;
     vec.y = vec.y * length;
     return vec;

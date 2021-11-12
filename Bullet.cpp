@@ -23,10 +23,30 @@ Bullet::~Bullet() {
 
 }
 
-void Bullet::update(float deltaTime) {
+void Bullet::update(float deltaTime, sf::RenderTarget &target) {
     sprite.move(movementSpeed * direction * deltaTime);
 }
 
 void Bullet::render(sf::RenderTarget &target) {
     target.draw(sprite);
+}
+
+bool Bullet::isOutsideWindow(sf::RenderTarget &target, std::vector<Bullet*> bullets) {
+    // Left
+    if (sprite.getPosition().x + sprite.getGlobalBounds().width <= 0) {
+        return true;
+    }
+    // Right
+    if (sprite.getPosition().x >= target.getSize().x) {
+        return true;
+    }
+    // Top
+    if (sprite.getPosition().y + sprite.getGlobalBounds().height <= 0) {
+        return true;
+    }
+    //Bottom
+    if (sprite.getPosition().y >= target.getSize().y) {
+        return true;
+    }
+    return false;
 }

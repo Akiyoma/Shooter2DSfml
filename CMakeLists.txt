@@ -3,7 +3,7 @@ project(Shooter2DSfml)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Shooter2DSfml main.cpp Player.cpp Player.h Bullet.cpp Bullet.h)
+add_executable(Shooter2DSfml main.cpp Game.cpp Game.h Player.cpp Player.h Bullet.cpp Bullet.h)
 
 set(SFML_ROOT "D:/Program Files (x86)/SFML-2.5.1")
 set(SFML_STATIC_LIBRARIES TRUE)
