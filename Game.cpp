@@ -21,10 +21,12 @@ void Game::run() {
         lastTime = currentTime;
         while (accumulator >= deltaTime) {
             update();
-            render();
+
 
             accumulator -= deltaTime;
         }
+        sf::sleep(sf::milliseconds(8));
+        render();
     }
 }
 
