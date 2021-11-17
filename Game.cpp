@@ -2,6 +2,7 @@
 
 void Game::initWindow() {
     window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Shooter 2D SFML");
+    window->setVerticalSyncEnabled(true);
 }
 
 Game::Game() {
@@ -25,7 +26,7 @@ void Game::run() {
 
             accumulator -= deltaTime;
         }
-        sf::sleep(sf::milliseconds(8));
+
         render();
     }
 }
