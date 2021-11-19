@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "../headers/Game.h"
 
 void Game::initWindow() {
     window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Shooter 2D SFML");
@@ -9,6 +9,7 @@ Game::Game() {
     initWindow();
 
     player = new Player();
+
 }
 
 Game::~Game() {
@@ -56,8 +57,9 @@ void Game::updateInput() {
         if (keyRight)
             dir.x++;
 
-        if (keyUp)
+        if (keyUp){
             dir.y--;
+        }
 
         if (keyDown)
             dir.y++;
@@ -88,7 +90,7 @@ void Game::updateInput() {
         if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
             cooldownBullet.restart();
             sf::Texture texture;
-            sf::Vector2f pos {player->sprite.getPosition().x, player->sprite.getPosition().y};
+            sf::Vector2f pos {player->sprite.getPosition().x + 13, player->sprite.getPosition().y};
             sf::Vector2f dir {0.f, -1.f};
             bullets.push_back(new Bullet(texture, pos, dir, 260.f));
         }
@@ -100,16 +102,20 @@ void Game::update() {
     updatePollEvents();
     updateInput();
 
+
     for (int i = 0; i < bullets.size(); ++i) {
         bullets[i]->update(deltaTime, *window);
         if (bullets[i]->isOutsideWindow(*window, bullets)) {
             bullets.erase(bullets.begin()+i);
         }
     }
+
+
 }
 
 void Game::render() {
     window->clear();
+
 
     player->render(*window);
 

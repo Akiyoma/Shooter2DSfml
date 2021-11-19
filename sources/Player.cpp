@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "../headers/Player.h"
 
 void Player::initTexture() {
     if (!texture.loadFromFile("../Textures/ship.png")) {

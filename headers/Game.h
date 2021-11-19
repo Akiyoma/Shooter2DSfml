@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Bullet.h"
 
+
 class Game {
 private:
     sf::RenderWindow* window;
@@ -14,9 +15,13 @@ private:
 
     Player* player;
 
+
+    //Dynamic table
     std::vector<Bullet*> bullets;
+
+
     sf::Clock cooldownBullet;
-    float cooldownBulletTime = .5f;
+    float cooldownBulletTime = .2f;
 
     const float deltaTime = 1.f/60.f; // 60fps
     sf::Clock clock;

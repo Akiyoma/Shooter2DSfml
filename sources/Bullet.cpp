@@ -1,4 +1,4 @@
-#include "Bullet.h"
+#include "../headers/Bullet.h"
 
 void Bullet::initTexture() {
     if (!texture.loadFromFile("../Textures/ship.png")) {
@@ -14,7 +14,7 @@ Bullet::Bullet(sf::Texture& texture, sf::Vector2f pos, sf::Vector2f dir, float m
     initTexture();
     sprite.setTexture(this->texture);
     sprite.setPosition(pos);
-    sprite.scale(.8f, .8f);
+    sprite.scale(0.5f, 0.5f);
     direction = dir;
     this->movementSpeed = movementSpeed;
 }
