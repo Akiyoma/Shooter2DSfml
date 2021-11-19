@@ -13,8 +13,7 @@ private:
 
     void initWindow();
 
-    Player* player;
-
+Player* player;
 
     //Dynamic table
     std::vector<Bullet*> bullets;

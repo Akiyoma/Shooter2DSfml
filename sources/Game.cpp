@@ -108,6 +108,12 @@ void Game::update() {
         if (bullets[i]->isOutsideWindow(*window, bullets)) {
             bullets.erase(bullets.begin()+i);
         }
+        else if (enemies.size() >= 1) {
+            if (bullets[i]->sprite.getGlobalBounds().intersects(enemies[0]->sprite.getGlobalBounds())) {
+                enemies.erase(enemies.begin());
+                bullets.erase(bullets.begin() + i);
+            }
+        }
     }
 
 
