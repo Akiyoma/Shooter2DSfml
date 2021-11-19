@@ -14,22 +14,17 @@ private:
 
     void initWindow();
 
-    //Keys
+    std::map<std::string, bool> keys;
 
+    Player* player;
 
-Player* player;
+    //Dynamic table
+    std::vector<Bullet*> bullets;
+    std::vector<Enemy*> enemies;
 
-//Dynamic table
-std::vector<Bullet*> bullets;
-std::vector<Enemy*> enemies;
-
-
-sf::Clock cooldownBullet;
-float cooldownBulletTime = .2f;
-
-const float deltaTime = 1.f/60.f; // 60fps
-sf::Clock clock;
-float lastTime = clock.getElapsedTime().asSeconds();
+    const float deltaTime = 1.f/60.f; // 60fps
+    sf::Clock clock;
+    float lastTime = clock.getElapsedTime().asSeconds();
     float accumulator = 0.f;
 
 public:

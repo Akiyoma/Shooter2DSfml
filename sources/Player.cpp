@@ -48,8 +48,53 @@ sf::Vector2f  Player::moveTo(sf::Vector2f dir){
     return moveToVec;
 }
 
-void Player::update() {
+void Player::update(float deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys, std::vector<Bullet*>& bullets) {
+    if (keys["Left"] || keys["Right"] || keys["Up"] || keys["Down"]) {
+        sf::Vector2<float> dir = {0, 0};
 
+        if (keys["Left"])
+            dir.x--;
+
+        if (keys["Right"])
+            dir.x++;
+
+        if (keys["Up"]){
+            dir.y--;
+        }
+
+        if (keys["Down"])
+            dir.y++;
+
+        move(dir, deltaTime);
+
+        // Collision window
+        // Left
+        if (sprite.getPosition().x <= 0) {
+            sprite.setPosition(0.f, sprite.getPosition().y);
+        }
+        // Right
+        if (sprite.getPosition().x >= window.getSize().x - sprite.getGlobalBounds().width) {
+            sprite.setPosition(window.getSize().x - sprite.getGlobalBounds().width, sprite.getPosition().y);
+        }
+        // Top
+        if (sprite.getPosition().y <= 0) {
+            sprite.setPosition(sprite.getPosition().x, 0.f);
+        }
+        //Bottom
+        if (sprite.getPosition().y >= window.getSize().y - sprite.getGlobalBounds().height) {
+            sprite.setPosition(sprite.getPosition().x, window.getSize().y - sprite.getGlobalBounds().height);
+        }
+    }
+
+    if (keys["Shoot"]) {
+        if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
+            cooldownBullet.restart();
+            sf::Texture textureBullet;
+            sf::Vector2f pos{sprite.getPosition().x + 13, sprite.getPosition().y};
+            sf::Vector2f dir{0.f, -1.f};
+            bullets.push_back(new Bullet(textureBullet, pos, dir, 260.f));
+        }
+    }
 }
 
 void Player::render(sf::RenderTarget &target) {
