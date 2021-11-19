@@ -9,11 +9,22 @@ Game::Game() {
     initWindow();
 
     player = new Player();
+    enemies.push_back(new Enemy);
+    enemies.push_back(new Enemy);
 
 }
 
 Game::~Game() {
     delete window;
+    delete player;
+
+    for (auto *bullet : bullets) {
+        delete bullet;
+    }
+
+    for (auto *enemy : enemies) {
+        delete enemy;
+    }
 }
 
 void Game::run() {
@@ -90,12 +101,11 @@ void Game::updateInput() {
         if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
             cooldownBullet.restart();
             sf::Texture texture;
-            sf::Vector2f pos {player->sprite.getPosition().x + 13, player->sprite.getPosition().y};
-            sf::Vector2f dir {0.f, -1.f};
+            sf::Vector2f pos{player->sprite.getPosition().x + 13, player->sprite.getPosition().y};
+            sf::Vector2f dir{0.f, -1.f};
             bullets.push_back(new Bullet(texture, pos, dir, 260.f));
         }
     }
-    //std::cout<<"Bullets : "<<bullets.size()<<std::endl;
 }
 
 void Game::update() {
@@ -116,7 +126,6 @@ void Game::update() {
         }
     }
 
-
 }
 
 void Game::render() {
@@ -127,6 +136,10 @@ void Game::render() {
 
     for (auto *bullet : bullets) {
         bullet->render(*window);
+    }
+
+    for (auto *enemy : enemies) {
+        enemy->render(*window);
     }
 
     window->display();

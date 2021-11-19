@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 
 class Game {
@@ -13,18 +14,22 @@ private:
 
     void initWindow();
 
+    //Keys
+
+
 Player* player;
 
-    //Dynamic table
-    std::vector<Bullet*> bullets;
+//Dynamic table
+std::vector<Bullet*> bullets;
+std::vector<Enemy*> enemies;
 
 
-    sf::Clock cooldownBullet;
-    float cooldownBulletTime = .2f;
+sf::Clock cooldownBullet;
+float cooldownBulletTime = .2f;
 
-    const float deltaTime = 1.f/60.f; // 60fps
-    sf::Clock clock;
-    float lastTime = clock.getElapsedTime().asSeconds();
+const float deltaTime = 1.f/60.f; // 60fps
+sf::Clock clock;
+float lastTime = clock.getElapsedTime().asSeconds();
     float accumulator = 0.f;
 
 public:

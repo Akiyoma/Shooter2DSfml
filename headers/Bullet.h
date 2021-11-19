@@ -6,9 +6,11 @@
 #include <iostream>
 
 class Bullet {
+public:
+    sf::Sprite sprite;
+
 private:
     sf::Texture texture;
-    sf::Sprite sprite;
     sf::Vector2f direction;
     float movementSpeed;
 
