@@ -1,7 +1,7 @@
 #include "../headers/Bullet.h"
 
 void Bullet::initTexture() {
-    if (!texture.loadFromFile("../Textures/ship.png")) {
+    if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Effects/BulletBombSpriteSheetBlue.png")) {
         std::cout << "Failed to load texture for bullet." << "\n";
     }
 }

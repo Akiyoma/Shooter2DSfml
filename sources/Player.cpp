@@ -1,7 +1,7 @@
 #include "../headers/Player.h"
 
 void Player::initTexture() {
-    if (!texture.loadFromFile("../Textures/ship.png")) {
+    if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Enemy/idle_bomber_green.png")) {
         std::cout << "Failed to load texture for player." << "\n";
     }
 }
@@ -92,7 +92,7 @@ void Player::update(float deltaTime, sf::RenderTarget& window, std::map<std::str
             sf::Texture textureBullet;
             sf::Vector2f pos{sprite.getPosition().x + 13, sprite.getPosition().y};
             sf::Vector2f dir{0.f, -1.f};
-            bullets.push_back(new Bullet(textureBullet, pos, dir, 260.f));
+            bullets.push_back(new Bullet(textureBullet, pos, dir, 560.f));
         }
     }
 }
