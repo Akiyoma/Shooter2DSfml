@@ -11,15 +11,17 @@ private:
     sf::Sprite sprite;
 
     float speed;
+    int textureSizeX;
+    int textureSizeY;
 
     sf::Clock cooldownBullet;
     float cooldownBulletTime = .2f;
 
     void initTexture();
-    void initSprite();
+    void initSprite(int x, int y);
 
 public:
-    Player();
+    Player(int windowSizeX, int windowSizeY);
 
     virtual ~Player();
 

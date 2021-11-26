@@ -8,7 +8,7 @@ void Game::initWindow() {
 Game::Game() {
     initWindow();
 
-    player = new Player();
+    player = new Player(window->getSize().x, window->getSize().y);
     enemies.push_back(new Enemy);
     enemies.push_back(new Enemy);
 

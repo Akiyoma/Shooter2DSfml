@@ -4,18 +4,28 @@ void Player::initTexture() {
     if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Enemy/idle_bomber_green.png")) {
         std::cout << "Failed to load texture for player." << "\n";
     }
+
 }
 
-void Player::initSprite() {
+void Player::initSprite(int x , int y) {
+
     sprite.setTexture(texture);
     sprite.scale(2.0f, 2.0f);
+
+    textureSizeX = texture.getSize().x;
+    textureSizeY = texture.getSize().y;
+
+    sprite.setOrigin(textureSizeX / 2, textureSizeY / 2);
+    std::cout<<sprite.getOrigin().x;
+    sprite.setPosition( x /2 , y/2);
+
 }
 
-Player::Player() {
-    speed = 240.f;
+Player::Player(int windowSizeX, int windowSizeY) {
 
+    speed = 240.f;
     initTexture();
-    initSprite();
+    initSprite(windowSizeX, windowSizeY);
 }
 
 Player::~Player() {
@@ -69,20 +79,20 @@ void Player::update(float deltaTime, sf::RenderTarget& window, std::map<std::str
 
         // Collision window
         // Left
-        if (sprite.getPosition().x <= 0) {
-            sprite.setPosition(0.f, sprite.getPosition().y);
+        if (sprite.getPosition().x <= textureSizeX)  {
+            sprite.setPosition(textureSizeX , sprite.getPosition().y);
         }
         // Right
-        if (sprite.getPosition().x >= window.getSize().x - sprite.getGlobalBounds().width) {
-            sprite.setPosition(window.getSize().x - sprite.getGlobalBounds().width, sprite.getPosition().y);
+        if (sprite.getPosition().x + textureSizeX >= window.getSize().x) {
+            sprite.setPosition(window.getSize().x - textureSizeX, sprite.getPosition().y);
         }
         // Top
-        if (sprite.getPosition().y <= 0) {
-            sprite.setPosition(sprite.getPosition().x, 0.f);
+        if (sprite.getPosition().y <= textureSizeY) {
+            sprite.setPosition(sprite.getPosition().x, textureSizeY);
         }
         //Bottom
-        if (sprite.getPosition().y >= window.getSize().y - sprite.getGlobalBounds().height) {
-            sprite.setPosition(sprite.getPosition().x, window.getSize().y - sprite.getGlobalBounds().height);
+        if (sprite.getPosition().y + textureSizeY >= window.getSize().y) {
+            sprite.setPosition(sprite.getPosition().x, window.getSize().y - textureSizeY);
         }
     }
 
@@ -90,7 +100,7 @@ void Player::update(float deltaTime, sf::RenderTarget& window, std::map<std::str
         if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
             cooldownBullet.restart();
             sf::Texture textureBullet;
-            sf::Vector2f pos{sprite.getPosition().x + sprite.getGlobalBounds().width/2 , sprite.getPosition().y - sprite.getGlobalBounds().height/2};
+            sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
             sf::Vector2f dir{0.f, -1.f};
             bullets.push_back(new Bullet(textureBullet, pos, dir, 560.f));
         }

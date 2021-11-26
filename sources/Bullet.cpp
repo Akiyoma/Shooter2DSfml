@@ -6,15 +6,14 @@ void Bullet::initTexture() {
     }
 }
 
-Bullet::Bullet() {
-
-}
-
 Bullet::Bullet(sf::Texture& texture, sf::Vector2f pos, sf::Vector2f dir, float movementSpeed) {
     initTexture();
     sprite.setTexture(this->texture);
-    sprite.setPosition(pos);
     sprite.scale(0.5f, 0.5f);
+
+    sprite.setPosition(pos);
+
+
     direction = dir;
     this->movementSpeed = movementSpeed;
 }
