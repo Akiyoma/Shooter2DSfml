@@ -87,8 +87,8 @@ void Player::update(float deltaTime, sf::RenderTarget& window, std::map<std::str
             sprite.setPosition(window.getSize().x - textureSizeX, sprite.getPosition().y);
         }
         // Top
-        if (sprite.getPosition().y <= textureSizeY) {
-            sprite.setPosition(sprite.getPosition().x, textureSizeY);
+        if (sprite.getPosition().y <= textureSizeY + window.getSize().y * 0.33) {
+            sprite.setPosition(sprite.getPosition().x, textureSizeY + window.getSize().y * 0.33);
         }
         //Bottom
         if (sprite.getPosition().y + textureSizeY >= window.getSize().y) {
