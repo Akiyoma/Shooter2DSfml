@@ -16,9 +16,11 @@ private:
     void initTexture();
     void initSprite();
 
+    void moveTo(sf::Vector2f, float deltaTime);
 public:
     Enemy();
 
+    void update(float deltaTime);
     void render(sf::RenderTarget& target);
 
     virtual ~Enemy();
