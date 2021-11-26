@@ -8,7 +8,7 @@ void Player::initTexture() {
 
 void Player::initSprite() {
     sprite.setTexture(texture);
-    sprite.scale(1.0f, 1.0f);
+    sprite.scale(2.0f, 2.0f);
 }
 
 Player::Player() {
@@ -90,7 +90,7 @@ void Player::update(float deltaTime, sf::RenderTarget& window, std::map<std::str
         if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
             cooldownBullet.restart();
             sf::Texture textureBullet;
-            sf::Vector2f pos{sprite.getPosition().x + 13, sprite.getPosition().y};
+            sf::Vector2f pos{sprite.getPosition().x + sprite.getGlobalBounds().width/2 , sprite.getPosition().y - sprite.getGlobalBounds().height/2};
             sf::Vector2f dir{0.f, -1.f};
             bullets.push_back(new Bullet(textureBullet, pos, dir, 560.f));
         }
