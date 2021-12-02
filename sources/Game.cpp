@@ -12,6 +12,8 @@ Game::Game() {
     enemies.push_back(new Enemy);
     enemies.push_back(new Enemy);
 
+    enemies[0]->sprite.setPosition(500,700);
+
 }
 
 Game::~Game() {
