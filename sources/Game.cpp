@@ -90,11 +90,12 @@ void Game::update() {
     for (int i = 0; i < enemies.size(); ++i) {
         enemies[i]->update(deltaTime,*window , ennemiesBullets);
         std::cout<<ennemiesBullets.size()<<std::endl;
-        for (int i = 0; i < ennemiesBullets.size(); ++i) {
-            ennemiesBullets[i]->update(deltaTime, *window);
-            if (ennemiesBullets[i]->isOutsideWindow(*window, ennemiesBullets)) {
-                ennemiesBullets.erase(ennemiesBullets.begin()+i);
-            }
+    }
+
+    for (int i = 0; i < ennemiesBullets.size(); ++i) {
+        ennemiesBullets[i]->update(deltaTime, *window);
+        if (ennemiesBullets[i]->isOutsideWindow(*window, ennemiesBullets)) {
+            ennemiesBullets.erase(ennemiesBullets.begin()+i);
         }
     }
 
