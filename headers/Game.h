@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include <list>
 
 
 class Game {
@@ -20,6 +21,7 @@ private:
 
     //Dynamic table
     std::vector<Bullet*> bullets;
+    std::vector<Bullet*> ennemiesBullets;
     std::vector<Enemy*> enemies;
 
     const float deltaTime = 1.f/60.f; // 60fps
