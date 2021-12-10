@@ -44,7 +44,6 @@ void Game::run() {
         while (accumulator >= deltaTime) {
             update();
 
-
             accumulator -= deltaTime;
         }
 
@@ -89,7 +88,14 @@ void Game::update() {
     }
 
     for (int i = 0; i < enemies.size(); ++i) {
-        enemies[i]->update(deltaTime);
+        enemies[i]->update(deltaTime,*window , ennemiesBullets);
+        std::cout<<ennemiesBullets.size()<<std::endl;
+        for (int i = 0; i < ennemiesBullets.size(); ++i) {
+            ennemiesBullets[i]->update(deltaTime, *window);
+            if (ennemiesBullets[i]->isOutsideWindow(*window, ennemiesBullets)) {
+                ennemiesBullets.erase(ennemiesBullets.begin()+i);
+            }
+        }
     }
 
 }
@@ -101,6 +107,10 @@ void Game::render() {
     player->render(*window);
 
     for (auto *bullet : bullets) {
+        bullet->render(*window);
+    }
+
+    for (auto *bullet : ennemiesBullets) {
         bullet->render(*window);
     }
 

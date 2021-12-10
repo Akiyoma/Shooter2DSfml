@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Bullet.h"
 
 class Enemy {
 public:
@@ -12,6 +13,12 @@ private:
     sf::Texture texture;
 
     float speed;
+
+    sf::Clock cooldownBullet;
+    float cooldownBulletTime = .2f;
+
+    int textureSizeX;
+    int textureSizeY;
 
     void initTexture();
     void initSprite();
@@ -23,7 +30,7 @@ private:
 public:
     Enemy();
 
-    void update(float deltaTime);
+    void update(float deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets);
     void render(sf::RenderTarget& target);
 
     virtual ~Enemy();

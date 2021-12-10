@@ -11,6 +11,9 @@ void Enemy::initSprite(){
     sprite.setTexture(texture);
     sprite.scale(2.0f, 2.0f);
     sprite.setRotation(180);
+
+    textureSizeX = texture.getSize().x;
+    textureSizeY = texture.getSize().y;
 }
 
 void Enemy::moveTo(sf::Vector2f pos, float deltaTime) {
@@ -52,8 +55,18 @@ Enemy::Enemy() {
     initSprite();
 }
 
-void Enemy::update(float deltaTime) {
+void Enemy::update(float deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets) {
     moveTo(sf::Vector2f(400, 100), deltaTime);
+
+
+    if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
+        std::cout<<"test"<<std::endl;
+        cooldownBullet.restart();
+        sf::Texture textureBullet;
+        sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y + textureSizeY * 2};
+        sf::Vector2f dir{0.f, 1.f};
+        bullets.push_back(new Bullet(textureBullet, pos, dir, 560.f));
+    }
 }
 
 void Enemy::render(sf::RenderTarget &target) {
