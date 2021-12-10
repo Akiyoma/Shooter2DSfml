@@ -1,13 +1,16 @@
 #include "../headers/Enemy.h"
 
 void Enemy::initTexture(){
-    if (!texture.loadFromFile("../Textures/enemy.png")) {
+    if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Enemy/idle_bomber_red.png")) {
         std::cout << "Failed to load texture for enemy." << "\n";
     }
+    texture.setSmooth(false);
 }
 
 void Enemy::initSprite(){
     sprite.setTexture(texture);
+    sprite.scale(2.0f, 2.0f);
+    sprite.setRotation(180);
 }
 
 void Enemy::moveTo(sf::Vector2f pos, float deltaTime) {
@@ -24,6 +27,22 @@ void Enemy::moveTo(sf::Vector2f pos, float deltaTime) {
     else {
         sprite.setPosition(pos);
     }
+}
+
+bool Enemy::circularMoveTo(sf::Vector2f, float deltaTime) {
+    for (int i = 0; i < 360; ++i) {
+        i++;
+        float sx = std::cos(i);
+        float sy = std::sin(i);
+        sprite.move(sx*deltaTime, sy*deltaTime);
+    }
+
+
+    return true;
+}
+
+void Enemy::fire(sf::Vector2f dir, float speed) {
+
 }
 
 Enemy::Enemy() {

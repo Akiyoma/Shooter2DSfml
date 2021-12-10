@@ -17,6 +17,9 @@ private:
     void initSprite();
 
     void moveTo(sf::Vector2f, float deltaTime);
+    bool circularMoveTo(sf::Vector2f, float deltaTime);
+
+    void fire(sf::Vector2f dir, float speed);
 public:
     Enemy();
 

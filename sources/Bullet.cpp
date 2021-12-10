@@ -4,6 +4,7 @@ void Bullet::initTexture() {
     if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Effects/LaserBlue.png")) {
         std::cout << "Failed to load texture for bullet." << "\n";
     }
+    texture.setSmooth(false);
 }
 
 Bullet::Bullet(sf::Texture& texture, sf::Vector2f pos, sf::Vector2f dir, float movementSpeed) {

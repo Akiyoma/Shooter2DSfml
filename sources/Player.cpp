@@ -4,7 +4,7 @@ void Player::initTexture() {
     if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Enemy/idle_bomber_green.png")) {
         std::cout << "Failed to load texture for player." << "\n";
     }
-
+    texture.setSmooth(false);
 }
 
 void Player::initSprite(int x , int y) {
@@ -16,7 +16,7 @@ void Player::initSprite(int x , int y) {
     textureSizeY = texture.getSize().y;
 
     sprite.setOrigin(textureSizeX / 2, textureSizeY / 2);
-    std::cout<<sprite.getOrigin().x;
+    //std::cout<<sprite.getOrigin().x;
     sprite.setPosition( x /2 , y/2);
 
 }

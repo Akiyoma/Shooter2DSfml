@@ -14,6 +14,8 @@ Game::Game() {
 
     enemies[0]->sprite.setPosition(500,700);
 
+    bullets.reserve(10);
+
 }
 
 Game::~Game() {
