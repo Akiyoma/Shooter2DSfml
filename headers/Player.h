@@ -25,13 +25,16 @@ public:
 
     virtual ~Player();
 
-    void move(sf::Vector2f dir, float deltaTime);
+    sf::Vector2f getDirection(std::map<std::string, bool> keys);
+    void move(float deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys);
     sf::Vector2f& normalize(sf::Vector2f vec);
+
+    void shoot(std::map<std::string, bool> keys, std::vector<Bullet*>& bullets);
+
+    void collisionWindow(sf::RenderTarget& window);
 
     void update(float deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys, std::vector<Bullet*>& bullets);
     void render(sf::RenderTarget& target);
-
-    sf::Vector2f moveTo(sf::Vector2f dir);
 };
 
 
