@@ -1,4 +1,4 @@
-#include "../headers/Enemy.h"
+#include "../../headers/Enemy.h"
 
 void Enemy::initTexture(){
     if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Enemy/idle_bomber_red.png")) {
@@ -32,20 +32,21 @@ void Enemy::moveTo(sf::Vector2f pos, float deltaTime) {
     }
 }
 
-bool Enemy::circularMoveTo(sf::Vector2f, float deltaTime) {
-    for (int i = 0; i < 360; ++i) {
-        i++;
-        float sx = std::cos(i);
-        float sy = std::sin(i);
-        sprite.move(sx*deltaTime, sy*deltaTime);
+void Enemy::fire(sf::Vector2f dir, float speed , std::vector<Bullet*>& bullets) {
+    if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
+        std::cout<<"test"<<std::endl;
+        cooldownBullet.restart();
+        sf::Texture textureBullet;
+        sf::Vector2f pos{sprite.getPosition().x - textureSizeX, sprite.getPosition().y};
+        bullets.push_back(new Bullet(textureBullet, pos, dir, speed));
+        /** *
+         * Creer diférent type de direction
+         *      strict bottom
+         *      in player direction
+         *      Following player
+         * On pourra la définir comme type de munition dans la méthode fire d'une classe héritant de Enemy
+         */
     }
-
-
-    return true;
-}
-
-void Enemy::fire(sf::Vector2f dir, float speed) {
-
 }
 
 Enemy::Enemy() {
@@ -58,15 +59,11 @@ Enemy::Enemy() {
 void Enemy::update(float deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets) {
     moveTo(sf::Vector2f(400, 100), deltaTime);
 
+    sf::Vector2f dir{0.f, 1.f};
+    setCooldownBulletTime(0.5f);
+    fire(dir, 550, bullets);
 
-    if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
-        std::cout<<"test"<<std::endl;
-        cooldownBullet.restart();
-        sf::Texture textureBullet;
-        sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y + textureSizeY * 2};
-        sf::Vector2f dir{0.f, 1.f};
-        bullets.push_back(new Bullet(textureBullet, pos, dir, 560.f));
-    }
+
 }
 
 void Enemy::render(sf::RenderTarget &target) {
@@ -74,3 +71,7 @@ void Enemy::render(sf::RenderTarget &target) {
 }
 
 Enemy::~Enemy() {}
+
+void Enemy::setCooldownBulletTime(float cooldownBulletTime) {
+    Enemy::cooldownBulletTime = cooldownBulletTime;
+}

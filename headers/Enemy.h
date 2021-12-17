@@ -16,6 +16,10 @@ private:
 
     sf::Clock cooldownBullet;
     float cooldownBulletTime = .2f;
+public:
+    void setCooldownBulletTime(float cooldownBulletTime);
+
+private:
 
     int textureSizeX;
     int textureSizeY;
@@ -24,9 +28,6 @@ private:
     void initSprite();
 
     void moveTo(sf::Vector2f, float deltaTime);
-    bool circularMoveTo(sf::Vector2f, float deltaTime);
-
-    void fire(sf::Vector2f dir, float speed);
 public:
     Enemy();
 
@@ -35,6 +36,7 @@ public:
 
     virtual ~Enemy();
 
+    void fire(sf::Vector2f dir, float speed, std::vector<Bullet *> &bullets);
 };
 
 
