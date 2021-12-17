@@ -1,7 +1,7 @@
 #include "../headers/Player.h"
 
 void Player::initTexture() {
-    if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Enemy/idle_bomber_green.png")) {
+    if (!texture.loadFromFile("../GalaxiaSpritePack/Enemy/idle_bomber_green.png")) {
         std::cout << "Failed to load texture for player." << "\n";
     }
     texture.setSmooth(false);

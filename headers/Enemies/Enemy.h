@@ -4,13 +4,14 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Bullet.h"
+#include "../Bullet.h"
 
 class Enemy {
 public:
     sf::Sprite sprite;
-private:
     sf::Texture texture;
+private:
+
 
     float speed;
 
@@ -24,13 +25,15 @@ private:
     int textureSizeX;
     int textureSizeY;
 
-    void initTexture();
-    void initSprite();
 
-    void moveTo(sf::Vector2f, float deltaTime);
+
 public:
     Enemy();
 
+//    void moveBetweenTwoPoint(sf::Vector2f dest1, sf::Vector2f dest2);
+    void moveTo(sf::Vector2f, float deltaTime);
+    void initTexture(std::string fileName);
+    void initSprite();
     void update(float deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets);
     void render(sf::RenderTarget& target);
 

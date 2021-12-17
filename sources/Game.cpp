@@ -11,9 +11,11 @@ Game::Game() {
     player = new Player(window->getSize().x, window->getSize().y);
     enemies.push_back(new Enemy);
     enemies.push_back(new Enemy);
+    enemies.push_back(new TwoTimePatrolEnemy());
+
 
     enemies[0]->sprite.setPosition(500,700);
-
+    enemies[2]->sprite.setPosition(300,500);
     bullets.reserve(10);
     ennemiesBullets.reserve(100);
 

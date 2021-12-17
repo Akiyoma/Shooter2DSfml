@@ -5,7 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Bullet.h"
-#include "Enemy.h"
+#include "Enemies/Enemy.h"
+#include "Enemies/TwoTimePatrolEnemy.h"
 #include <list>
 
 

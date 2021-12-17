@@ -1,7 +1,7 @@
 #include "../headers/Bullet.h"
 
 void Bullet::initTexture() {
-    if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Effects/LaserBlue.png")) {
+    if (!texture.loadFromFile("../GalaxiaSpritePack/Effects/LaserBlue.png")) {
         std::cout << "Failed to load texture for bullet." << "\n";
     }
     texture.setSmooth(false);

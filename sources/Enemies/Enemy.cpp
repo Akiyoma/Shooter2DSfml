@@ -1,7 +1,7 @@
-#include "../../headers/Enemy.h"
+#include "../../headers/Enemies/Enemy.h"
 
-void Enemy::initTexture(){
-    if (!texture.loadFromFile("../Galaxia Sprite Pack #1/Enemy/idle_bomber_red.png")) {
+void Enemy::initTexture(std::string fileName){
+    if (!texture.loadFromFile(fileName)) {
         std::cout << "Failed to load texture for enemy." << "\n";
     }
     texture.setSmooth(false);
@@ -52,17 +52,19 @@ void Enemy::fire(sf::Vector2f dir, float speed , std::vector<Bullet*>& bullets) 
 Enemy::Enemy() {
     speed = 240.f;
 
-    initTexture();
+    initTexture("../GalaxiaSpritePack/Enemy/idle_bomber_red.png");
     initSprite();
+    setCooldownBulletTime(0.5f);
+
 }
+
+
 
 void Enemy::update(float deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets) {
     moveTo(sf::Vector2f(400, 100), deltaTime);
 
     sf::Vector2f dir{0.f, 1.f};
-    setCooldownBulletTime(0.5f);
     fire(dir, 550, bullets);
-
 
 }
 
