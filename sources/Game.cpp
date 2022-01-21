@@ -75,23 +75,27 @@ void Game::update() {
     updateInput();
 
     player->update(deltaTime, *window, keys, bullets);
+    for (int i = 0; i < enemies.size(); ++i) {
+        enemies[i]->update(deltaTime,*window , ennemiesBullets);
+    }
+
+    std::vector<Bullet*> bulletsToDelete;
+    std::vector<Enemy*> enemiesToDelete;
+    std::vector<Bullet*> enemiesBulletsToDelete;
 
     for (int i = 0; i < bullets.size(); ++i) {
         bullets[i]->update(deltaTime, *window);
         if (bullets[i]->isOutsideWindow(*window, bullets)) {
-            bullets.erase(bullets.begin()+i);
+            bulletsToDelete.push_back(bullets[i]);
         }
         else if (!enemies.empty()) {
-            if (bullets[i]->sprite.getGlobalBounds().intersects(enemies[0]->sprite.getGlobalBounds())) {
-                enemies.erase(enemies.begin());
-                bullets.erase(bullets.begin() + i);
+            for (int j = 0; j < enemies.size(); ++j) {
+                if (bullets[i]->sprite.getGlobalBounds().intersects(enemies[j]->sprite.getGlobalBounds())) {
+                    enemiesToDelete.push_back(enemies[j]);
+                    bulletsToDelete.push_back(bullets[i]);
+                }
             }
         }
-    }
-
-    for (int i = 0; i < enemies.size(); ++i) {
-        enemies[i]->update(deltaTime,*window , ennemiesBullets);
-        std::cout<<ennemiesBullets.size()<<std::endl;
     }
 
     for (int i = 0; i < ennemiesBullets.size(); ++i) {
@@ -101,6 +105,24 @@ void Game::update() {
         }
     }
 
+    // Delete bullets
+    for (auto bullet: bulletsToDelete) {
+        bullets.erase(std::remove(bullets.begin(), bullets.end(), bullet), bullets.end());
+    }
+    bulletsToDelete.clear();
+
+    // Delete enemies
+    for (auto enemy: enemiesToDelete) {
+        //vec.erase(std::remove(vec.begin(), vec.end(), 8), vec.end());
+        enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+    }
+    enemiesToDelete.clear();
+
+    // Delete enemies bullets
+    for (auto bullet: ennemiesBullets) {
+        ennemiesBullets.erase(std::remove(ennemiesBullets.begin(), ennemiesBullets.end(), bullet), ennemiesBullets.end());
+    }
+    enemiesBulletsToDelete.clear();
 }
 
 void Game::render() {
