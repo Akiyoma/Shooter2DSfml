@@ -10,9 +10,10 @@ class Enemy {
 public:
     sf::Sprite sprite;
     sf::Texture texture;
+
 private:
 
-
+    int movePoint;
     float speed;
 
     sf::Clock cooldownBullet;
@@ -28,18 +29,18 @@ private:
 
 
 public:
-    Enemy();
+    Enemy(sf::Texture *texture);
 
-//    void moveBetweenTwoPoint(sf::Vector2f dest1, sf::Vector2f dest2);
-    void moveTo(sf::Vector2f, float deltaTime);
-    void initTexture(std::string fileName);
-    void initSprite();
-    void update(float deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets);
+    bool moveTo(sf::Vector2f, float deltaTime);
+    void initSprite(sf::Texture* texture, float scaleX, float scaleY);
+    virtual void update(float deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets);
     void render(sf::RenderTarget& target);
 
     virtual ~Enemy();
 
     void fire(sf::Vector2f dir, float speed, std::vector<Bullet *> &bullets);
+
+    void moveBetweenTwoPoint(sf::Vector2f dest1, sf::Vector2f dest2, float deltaTime);
 };
 
 

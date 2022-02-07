@@ -2,7 +2,7 @@
 
 void Bullet::initTexture() {
     if (!texture.loadFromFile("../GalaxiaSpritePack/Effects/LaserBlue.png")) {
-        std::cout << "Failed to load texture for bullet." << "\n";
+        std::cout << "Failed to load defaultEnemyTexturePtr for bullet." << "\n";
     }
     texture.setSmooth(false);
 }

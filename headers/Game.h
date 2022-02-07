@@ -3,6 +3,7 @@
 
 
 #include <SFML/Graphics.hpp>
+#include "Loader.h"
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemies/Enemy.h"
@@ -17,7 +18,7 @@ private:
     void initWindow();
 
     std::map<std::string, bool> keys;
-
+    Loader* loader;
     Player* player;
 
     //Dynamic table

@@ -1,30 +1,22 @@
 #include "../headers/Player.h"
 
-void Player::initTexture() {
-    if (!texture.loadFromFile("../GalaxiaSpritePack/Enemy/idle_bomber_green.png")) {
-        std::cout << "Failed to load texture for player." << "\n";
-    }
-    texture.setSmooth(false);
-}
+void Player::initSprite(int x , int y, sf::Texture* texture) {
 
-void Player::initSprite(int x , int y) {
-
-    sprite.setTexture(texture);
+    sprite.setTexture(*texture);
     sprite.scale(2.0f, 2.0f);
 
-    textureSizeX = texture.getSize().x;
-    textureSizeY = texture.getSize().y;
+    textureSizeX = texture->getSize().x;
+    textureSizeY = texture->getSize().y;
 
     sprite.setOrigin(textureSizeX / 2, textureSizeY / 2);
     sprite.setPosition( x /2 , y/2);
 
 }
 
-Player::Player(int windowSizeX, int windowSizeY) {
+Player::Player(int windowSizeX, int windowSizeY, sf::Texture* texture) {
 
     speed = 240.f;
-    initTexture();
-    initSprite(windowSizeX, windowSizeY);
+    initSprite(windowSizeX, windowSizeY, texture);
 }
 
 Player::~Player() {

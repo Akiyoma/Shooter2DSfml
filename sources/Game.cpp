@@ -6,16 +6,21 @@ void Game::initWindow() {
 }
 
 Game::Game() {
+
+    loader = new Loader();
+    loader->loadGame();
+
     initWindow();
 
-    player = new Player(window->getSize().x, window->getSize().y);
-    enemies.push_back(new Enemy);
-    enemies.push_back(new Enemy);
-    enemies.push_back(new TwoTimePatrolEnemy());
-
+    player = new Player(window->getSize().x, window->getSize().y, &loader->playerTexture);
+    enemies.push_back(new Enemy(&loader->defaultEnemyTexture));
+    enemies.push_back(new Enemy(&loader->defaultEnemyTexture));
+    enemies.push_back(new TwoTimePatrolEnemy(&loader->twoTimePatrolEnemyTexture));
 
     enemies[0]->sprite.setPosition(500,700);
+    enemies[1]->sprite.setPosition(400,400);
     enemies[2]->sprite.setPosition(300,500);
+
     bullets.reserve(10);
     ennemiesBullets.reserve(100);
 

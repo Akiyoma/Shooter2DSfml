@@ -7,7 +7,7 @@
 
 class Player {
 private:
-    sf::Texture texture;
+
     sf::Sprite sprite;
 
     float speed;
@@ -17,11 +17,10 @@ private:
     sf::Clock cooldownBullet;
     float cooldownBulletTime = .2f;
 
-    void initTexture();
-    void initSprite(int x, int y);
+    void initSprite(int x, int y, sf::Texture* texture);
 
 public:
-    Player(int windowSizeX, int windowSizeY);
+    Player(int windowSizeX, int windowSizeY, sf::Texture* texture);
 
     virtual ~Player();
 
