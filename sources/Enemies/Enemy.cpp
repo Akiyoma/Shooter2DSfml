@@ -27,15 +27,6 @@ bool Enemy::moveTo(sf::Vector2f pos, float deltaTime) {
     return false;
 }
 
-void Enemy::moveBetweenTwoPoint(sf::Vector2f dest1, sf::Vector2f dest2, float deltaTime) {
-
-    if (moveTo(dest1, deltaTime))
-    {
-        movePoint++;
-    } else if (moveTo(dest2, deltaTime)){
-        movePoint--;
-    }
-}
 
 void Enemy::fire(sf::Vector2f dir, float speed , std::vector<Bullet*>& bullets) {
     if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
@@ -55,6 +46,8 @@ void Enemy::fire(sf::Vector2f dir, float speed , std::vector<Bullet*>& bullets) 
 
 Enemy::Enemy(sf::Texture *texture) {
     speed = 240.f;
+    movePointId = 0;
+    twoTimePattrolChecker = false;
 
     //initTexture("../GalaxiaSpritePack/Enemy/idle_bomber_red.png");
     initSprite(texture, 2, 2);
@@ -79,6 +72,21 @@ void Enemy::setCooldownBulletTime(float cooldownBulletTime) {
 }
 
 Enemy::~Enemy() {}
+
+void Enemy::moveBetweenTwoPoint(std::vector<sf::Vector2<float>> movementPointPositions, float deltaTime) {
+
+    if (movePointId == 0 )
+    {
+        if (moveTo(movementPointPositions[movePointId], deltaTime) ){
+            movePointId++ ;
+        }
+    } else if (movePointId == 1){
+        if (moveTo(movementPointPositions[movePointId], deltaTime) ){
+            movePointId-- ;
+        }
+    }
+}
+
 
 
 

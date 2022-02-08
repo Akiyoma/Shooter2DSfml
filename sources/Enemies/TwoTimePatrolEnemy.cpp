@@ -22,6 +22,15 @@ void TwoTimePatrolEnemy::update(float deltaTime, sf::RenderTarget &window, std::
     Enemy::update(deltaTime, window, bullets);
 
     sf::Vector2f dest1 ={100, 100};
-    sf::Vector2f dest2 ={500, 500};
-    moveBetweenTwoPoint(dest1, dest2, deltaTime);
+    sf::Vector2f dest2 ={500, 100};
+
+    std::vector<sf::Vector2<float>> movementPoints = {dest1, dest2};
+
+    moveBetweenTwoPoint(movementPoints, deltaTime);
 }
+
+/*void TwoTimePatrolEnemy::MovementPattern(float speed, float interval, std::vector<sf::Vector2<float>> movePointId) {
+
+
+
+}*/

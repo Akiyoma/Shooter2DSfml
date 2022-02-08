@@ -13,8 +13,10 @@ public:
 
 private:
 
-    int movePoint;
+    int movePointId;
     float speed;
+
+    bool twoTimePattrolChecker;
 
     sf::Clock cooldownBullet;
     float cooldownBulletTime = .2f;
@@ -40,7 +42,7 @@ public:
 
     void fire(sf::Vector2f dir, float speed, std::vector<Bullet *> &bullets);
 
-    void moveBetweenTwoPoint(sf::Vector2f dest1, sf::Vector2f dest2, float deltaTime);
+    void moveBetweenTwoPoint(std::vector<sf::Vector2<float>>, float deltaTime);
 };
 
 
