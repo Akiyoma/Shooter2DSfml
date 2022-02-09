@@ -42,10 +42,10 @@ sf::Vector2f Player::getDirection(std::map<std::string, bool> keys) {
     return dir;
 }
 
-void Player::move(float deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys) {
+void Player::move(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys) {
     if (keys["Left"] || keys["Right"] || keys["Up"] || keys["Down"]) {
         sf::Vector2<float> vec = normalize(getDirection(keys));
-        sprite.move(vec * speed * deltaTime);
+        sprite.move(vec * speed * deltaTime.asSeconds());
 
         collisionWindow(window);
     }
@@ -92,7 +92,7 @@ void Player::collisionWindow(sf::RenderTarget &window) {
     }
 }
 
-void Player::update(float deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys, std::vector<Bullet*>& bullets) {
+void Player::update(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys, std::vector<Bullet*>& bullets) {
     move(deltaTime, window, keys);
     shoot(keys, bullets);
 }

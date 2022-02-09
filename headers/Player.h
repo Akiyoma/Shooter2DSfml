@@ -8,8 +8,6 @@
 class Player {
 private:
 
-    sf::Sprite sprite;
-
     float speed;
     int textureSizeX;
     int textureSizeY;
@@ -20,19 +18,21 @@ private:
     void initSprite(int x, int y, sf::Texture* texture);
 
 public:
+    sf::Sprite sprite;
+
     Player(int windowSizeX, int windowSizeY, sf::Texture* texture);
 
     virtual ~Player();
 
     sf::Vector2f getDirection(std::map<std::string, bool> keys);
-    void move(float deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys);
+    void move(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys);
     sf::Vector2f& normalize(sf::Vector2f vec);
 
     void shoot(std::map<std::string, bool> keys, std::vector<Bullet*>& bullets);
 
     void collisionWindow(sf::RenderTarget& window);
 
-    void update(float deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys, std::vector<Bullet*>& bullets);
+    void update(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys, std::vector<Bullet*>& bullets);
     void render(sf::RenderTarget& target);
 };
 

@@ -9,6 +9,7 @@
 #include "Enemies/Enemy.h"
 #include "Enemies/TwoTimePatrolEnemy.h"
 #include <list>
+#include "../headers/Level.h"
 
 
 class Game {
@@ -19,17 +20,12 @@ private:
 
     std::map<std::string, bool> keys;
     Loader* loader;
-    Player* player;
-
-    //Dynamic table
-    std::vector<Bullet*> bullets;
-    std::vector<Bullet*> ennemiesBullets;
-    std::vector<Enemy*> enemies;
-
-    const float deltaTime = 1.f/60.f; // 60fps
+    //const float deltaTime = 1.f/60.f; // 60fps
     sf::Clock clock;
-    float lastTime = clock.getElapsedTime().asSeconds();
-    float accumulator = 0.f;
+    sf::Time fixedPhysic = sf::microseconds(16666);
+    sf::Time updateTime;
+
+    Level* level;
 
 public:
     Game();

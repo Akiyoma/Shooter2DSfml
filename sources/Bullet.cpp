@@ -23,8 +23,8 @@ Bullet::~Bullet() {
 
 }
 
-void Bullet::update(float deltaTime, sf::RenderTarget &target) {
-    sprite.move(movementSpeed * direction * deltaTime);
+void Bullet::update(sf::Time deltaTime, sf::RenderTarget &target) {
+    sprite.move(movementSpeed * direction * deltaTime.asSeconds());
 }
 
 void Bullet::render(sf::RenderTarget &target) {

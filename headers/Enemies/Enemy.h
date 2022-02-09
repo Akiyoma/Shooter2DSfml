@@ -33,16 +33,16 @@ private:
 public:
     Enemy(sf::Texture *texture);
 
-    bool moveTo(sf::Vector2f, float deltaTime);
+    bool moveTo(sf::Vector2f, sf::Time deltaTime);
     void initSprite(sf::Texture* texture, float scaleX, float scaleY);
-    virtual void update(float deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets);
+    virtual void update(sf::Time deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets);
     void render(sf::RenderTarget& target);
 
     virtual ~Enemy();
 
     void fire(sf::Vector2f dir, float speed, std::vector<Bullet *> &bullets);
 
-    void moveBetweenTwoPoint(std::vector<sf::Vector2<float>>, float deltaTime);
+    void moveBetweenTwoPoint(std::vector<sf::Vector2<float>>, sf::Time deltaTime);
 };
 
 

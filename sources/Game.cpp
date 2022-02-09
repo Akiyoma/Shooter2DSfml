@@ -12,46 +12,26 @@ Game::Game() {
 
     initWindow();
 
-    player = new Player(window->getSize().x, window->getSize().y, &loader->playerTexture);
-    enemies.push_back(new Enemy(&loader->defaultEnemyTexture));
-    enemies.push_back(new Enemy(&loader->defaultEnemyTexture));
-    enemies.push_back(new TwoTimePatrolEnemy(&loader->twoTimePatrolEnemyTexture));
-
-    enemies[0]->sprite.setPosition(500,700);
-    enemies[1]->sprite.setPosition(400,400);
-    enemies[2]->sprite.setPosition(300,500);
-
-    bullets.reserve(10);
-    ennemiesBullets.reserve(100);
-
+    level = new Level(*window, *loader);
 }
 
 Game::~Game() {
     delete window;
-    delete player;
-
-    for (auto *bullet : bullets) {
-        delete bullet;
-    }
-
-    for (auto *bullet : ennemiesBullets) {
-            delete bullet;
-        }
-
-    for (auto *enemy : enemies) {
-        delete enemy;
-    }
 }
 
 void Game::run() {
     while (window->isOpen()) {
-        float currentTime = clock.getElapsedTime().asSeconds();
-        accumulator += currentTime - lastTime;
-        lastTime = currentTime;
-        while (accumulator >= deltaTime) {
-            update();
+        // Update delta time
+        sf::Time elapsed = clock.restart();
+        if (elapsed.asSeconds() > 0.1f)
+            elapsed = sf::seconds(0.1f);
+        updateTime += elapsed;
 
-            accumulator -= deltaTime;
+        update();
+
+        while (updateTime >= fixedPhysic) {
+            level->update(*window, fixedPhysic, keys);
+            updateTime -= fixedPhysic;
         }
 
         render();
@@ -78,75 +58,12 @@ void Game::updateInput() {
 void Game::update() {
     updatePollEvents();
     updateInput();
-
-    player->update(deltaTime, *window, keys, bullets);
-    for (int i = 0; i < enemies.size(); ++i) {
-        enemies[i]->update(deltaTime,*window , ennemiesBullets);
-    }
-
-    std::vector<Bullet*> bulletsToDelete;
-    std::vector<Enemy*> enemiesToDelete;
-    std::vector<Bullet*> enemiesBulletsToDelete;
-
-    for (int i = 0; i < bullets.size(); ++i) {
-        bullets[i]->update(deltaTime, *window);
-        if (bullets[i]->isOutsideWindow(*window, bullets)) {
-            bulletsToDelete.push_back(bullets[i]);
-        }
-        else if (!enemies.empty()) {
-            for (int j = 0; j < enemies.size(); ++j) {
-                if (bullets[i]->sprite.getGlobalBounds().intersects(enemies[j]->sprite.getGlobalBounds())) {
-                    enemiesToDelete.push_back(enemies[j]);
-                    bulletsToDelete.push_back(bullets[i]);
-                }
-            }
-        }
-    }
-
-    for (int i = 0; i < ennemiesBullets.size(); ++i) {
-        ennemiesBullets[i]->update(deltaTime, *window);
-        if (ennemiesBullets[i]->isOutsideWindow(*window, ennemiesBullets)) {
-            ennemiesBullets.erase(ennemiesBullets.begin()+i);
-        }
-    }
-
-    // Delete bullets
-    for (auto bullet: bulletsToDelete) {
-        bullets.erase(std::remove(bullets.begin(), bullets.end(), bullet), bullets.end());
-    }
-    bulletsToDelete.clear();
-
-    // Delete enemies
-    for (auto enemy: enemiesToDelete) {
-        //vec.erase(std::remove(vec.begin(), vec.end(), 8), vec.end());
-        enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
-    }
-    enemiesToDelete.clear();
-
-    // Delete enemies bullets
-    for (auto bullet: ennemiesBullets) {
-        ennemiesBullets.erase(std::remove(ennemiesBullets.begin(), ennemiesBullets.end(), bullet), ennemiesBullets.end());
-    }
-    enemiesBulletsToDelete.clear();
 }
 
 void Game::render() {
     window->clear();
 
-
-    player->render(*window);
-
-    for (auto *bullet : bullets) {
-        bullet->render(*window);
-    }
-
-    for (auto *bullet : ennemiesBullets) {
-        bullet->render(*window);
-    }
-
-    for (auto *enemy : enemies) {
-        enemy->render(*window);
-    }
+    level->render(*window);
 
     window->display();
 }

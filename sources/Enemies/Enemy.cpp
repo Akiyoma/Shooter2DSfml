@@ -9,7 +9,7 @@ void Enemy::initSprite(sf::Texture* texture, float scaleX, float scaleY){
     textureSizeY = texture->getSize().y;
 }
 
-bool Enemy::moveTo(sf::Vector2f pos, float deltaTime) {
+bool Enemy::moveTo(sf::Vector2f pos, sf::Time deltaTime) {
     sf::Vector2f dir {pos.x - sprite.getPosition().x, pos.y - sprite.getPosition().y};
     float length = dir.x*dir.x + dir.y*dir.y;
     length = sqrt(length);
@@ -17,8 +17,8 @@ bool Enemy::moveTo(sf::Vector2f pos, float deltaTime) {
 
     float distX = std::abs(sprite.getPosition().x - pos.x);
     float distY = std::abs(sprite.getPosition().y - pos.y);
-    if (distX > std::abs(dir.x * speed * deltaTime) || distY > std::abs(dir.y * speed * deltaTime)) {
-        sprite.move(dir * speed * deltaTime);
+    if (distX > std::abs(dir.x * speed * deltaTime.asSeconds()) || distY > std::abs(dir.y * speed * deltaTime.asSeconds())) {
+        sprite.move(dir * speed * deltaTime.asSeconds());
     }
     else {
         sprite.setPosition(pos);
@@ -55,7 +55,7 @@ Enemy::Enemy(sf::Texture *texture) {
 
 }
 
-void Enemy::update(float deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets) {
+void Enemy::update(sf::Time deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets) {
     //moveTo(sf::Vector2f(400, 100), deltaTime);
 
     sf::Vector2f dir{0.f, 1.f};
@@ -73,7 +73,7 @@ void Enemy::setCooldownBulletTime(float cooldownBulletTime) {
 
 Enemy::~Enemy() {}
 
-void Enemy::moveBetweenTwoPoint(std::vector<sf::Vector2<float>> movementPointPositions, float deltaTime) {
+void Enemy::moveBetweenTwoPoint(std::vector<sf::Vector2<float>> movementPointPositions, sf::Time deltaTime) {
 
     if (movePointId == 0 )
     {

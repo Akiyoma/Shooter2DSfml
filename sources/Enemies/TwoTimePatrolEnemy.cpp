@@ -18,7 +18,7 @@ TwoTimePatrolEnemy::~TwoTimePatrolEnemy() {
 
 }
 
-void TwoTimePatrolEnemy::update(float deltaTime, sf::RenderTarget &window, std::vector<Bullet *> &bullets) {
+void TwoTimePatrolEnemy::update(sf::Time deltaTime, sf::RenderTarget &window, std::vector<Bullet *> &bullets) {
     Enemy::update(deltaTime, window, bullets);
 
     sf::Vector2f dest1 ={100, 100};
