@@ -12,6 +12,16 @@ Level::Level(sf::RenderWindow& window, Loader& loader) {
 
     bullets.reserve(10);
     ennemiesBullets.reserve(100);
+
+    scoreText.setFont(loader.font);
+    scoreText.setString("Score : 0");
+    scoreText.setFillColor(sf::Color::White);
+    scoreText.setPosition(0, 0);
+
+    hpText.setFont(loader.font);
+    hpText.setString("HP : " + std::to_string(player->hp));
+    hpText.setFillColor(sf::Color::White);
+    hpText.setPosition(window.getSize().x - 100, 0);
 }
 
 Level::~Level() {
@@ -62,6 +72,8 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
         }
         else if (ennemiesBullets[i]->sprite.getGlobalBounds().intersects(player->sprite.getGlobalBounds())) {
             enemiesBulletsToDelete.push_back(ennemiesBullets[i]);
+            if (!player->isInvulnerable)
+                reduceHp(1);
         }
     }
 
@@ -75,6 +87,7 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
     for (auto enemy: enemiesToDelete) {
         //vec.erase(std::remove(vec.begin(), vec.end(), 8), vec.end());
         enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+        addScore(1);
     }
     enemiesToDelete.clear();
 
@@ -99,4 +112,17 @@ void Level::render(sf::RenderWindow &window) {
     for (auto enemy : enemies) {
         enemy->render(window);
     }
+
+    window.draw(scoreText);
+    window.draw(hpText);
+}
+
+void Level::addScore(int n) {
+    score += n;
+    scoreText.setString("Score : " + std::to_string(score));
+}
+
+void Level::reduceHp(int n) {
+    player->getDamage();
+    hpText.setString("HP : " + std::to_string(player->hp));
 }

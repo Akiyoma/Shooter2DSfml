@@ -11,6 +11,7 @@ void Player::initSprite(int x , int y, sf::Texture* texture) {
     sprite.setOrigin(textureSizeX / 2, textureSizeY / 2);
     sprite.setPosition( x /2 , y/2);
 
+    //sprite.setColor(sf::Color::Red);
 }
 
 Player::Player(int windowSizeX, int windowSizeY, sf::Texture* texture) {
@@ -63,13 +64,45 @@ sf::Vector2f &Player::normalize(sf::Vector2f vec) {
 
 void Player::shoot(std::map<std::string, bool> keys, std::vector<Bullet*>& bullets) {
     if (keys["Shoot"]) {
-        if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
-            cooldownBullet.restart();
-            sf::Texture textureBullet;
+        canShoot = false;
+        cooldownBullet.restart();
+        sf::Texture textureBullet;
+        if (currentWeapon == 0) {
             sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
+            sf::Vector2f pos2{sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
+            sf::Vector2f pos3{sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
             sf::Vector2f dir{0.f, -1.f};
-            bullets.push_back(new Bullet(textureBullet, pos, dir, 560.f));
+            sf::Vector2f dir2{0.f, -1.f};
+            sf::Vector2f dir3{0.f, -1.f};
+            Bullet* bullet1 = new Bullet(textureBullet, pos, dir, 560.f);
+            Bullet* bullet2 = new Bullet(textureBullet, pos2, dir2, 560.f);
+            Bullet* bullet3 = new Bullet(textureBullet, pos3, dir3, 560.f);
+            bullets.push_back(bullet1);
+            bullets.push_back(bullet2);
+            bullets.push_back(bullet3);
         }
+        else if (currentWeapon == 1) {
+            sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
+            sf::Vector2f pos2{sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
+            sf::Vector2f pos3{sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
+            sf::Vector2f dir{0.f, -1.f};
+            sf::Vector2f dir2{0.5f, -0.86f};
+            sf::Vector2f dir3{-0.5f, -0.86f};
+            Bullet* bullet1 = new Bullet(textureBullet, pos, dir, 560.f);
+            Bullet* bullet2 = new Bullet(textureBullet, pos2, dir2, 560.f);
+            bullet2->sprite.rotate(30);
+            Bullet* bullet3 = new Bullet(textureBullet, pos3, dir3, 560.f);
+            bullet3->sprite.rotate(-30);
+            bullets.push_back(bullet1);
+            bullets.push_back(bullet2);
+            bullets.push_back(bullet3);
+        }
+    }
+}
+
+void Player::cooldownShoot() {
+    if (!canShoot && cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
+        canShoot = true;
     }
 }
 
@@ -92,9 +125,43 @@ void Player::collisionWindow(sf::RenderTarget &window) {
     }
 }
 
+void Player::changeWeapon(std::map<std::string, bool> keys) {
+    if (keys["ChangeWeapon"]) {
+        currentWeapon++;
+        if (currentWeapon > 1)
+            currentWeapon = 0;
+    }
+}
+
+void Player::getDamage() {
+    hp--;
+    isInvulnerable = true;
+    invulnerabilityTime.restart();
+}
+
+void Player::invulnerability() {
+    if (isInvulnerable) {
+        if (invulnerabilityTime.getElapsedTime().asSeconds() < 0.5f)
+            sprite.setColor(sf::Color::Red);
+        else if (invulnerabilityTime.getElapsedTime().asSeconds() < 1.f)
+            sprite.setColor(sf::Color::White);
+        else if (invulnerabilityTime.getElapsedTime().asSeconds() < 1.5f)
+            sprite.setColor(sf::Color::Red);
+        else if (invulnerabilityTime.getElapsedTime().asSeconds() >= 1.5f) {
+            sprite.setColor(sf::Color::White);
+            isInvulnerable = false;
+        }
+    }
+}
+
+
 void Player::update(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys, std::vector<Bullet*>& bullets) {
     move(deltaTime, window, keys);
-    shoot(keys, bullets);
+    changeWeapon(keys);
+    cooldownShoot();
+    if (canShoot)
+        shoot(keys, bullets);
+    invulnerability();
 }
 
 void Player::render(sf::RenderTarget &target) {

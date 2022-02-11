@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Font.hpp>
 
 class Loader{
     public:
@@ -14,12 +15,15 @@ class Loader{
     sf::Texture bulletTexture;
     sf::Texture playerTexture;
 
+    sf::Font font;
+
 
     private:
         void Loader::loadDefaultEnemyTexture(std::string fileName);
         void Loader::loadTwoTimePatrolEnemyTexture(std::string fileName);
         void Loader::loadBulletTexture(std::string fileName);
         void Loader::loadPlayerTexture(std::string fileName);
+        void Loader::loadFont(std::string fileName);
 
     public:
         void Loader::loadGame();

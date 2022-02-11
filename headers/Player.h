@@ -14,11 +14,19 @@ private:
 
     sf::Clock cooldownBullet;
     float cooldownBulletTime = .2f;
+    bool canShoot = true;
+
+    int currentWeapon = 0;
+
+    sf::Clock invulnerabilityTime;
 
     void initSprite(int x, int y, sf::Texture* texture);
 
 public:
     sf::Sprite sprite;
+
+    bool isInvulnerable = false;
+    int hp = 3;
 
     Player(int windowSizeX, int windowSizeY, sf::Texture* texture);
 
@@ -29,8 +37,14 @@ public:
     sf::Vector2f& normalize(sf::Vector2f vec);
 
     void shoot(std::map<std::string, bool> keys, std::vector<Bullet*>& bullets);
+    void cooldownShoot();
 
     void collisionWindow(sf::RenderTarget& window);
+
+    void changeWeapon(std::map<std::string, bool> keys);
+
+    void getDamage();
+    void invulnerability();
 
     void update(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys, std::vector<Bullet*>& bullets);
     void render(sf::RenderTarget& target);

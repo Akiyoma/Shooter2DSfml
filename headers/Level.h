@@ -17,12 +17,20 @@ public:
     std::vector<Bullet*> ennemiesBullets;
     std::vector<Enemy*> enemies;
 
+    int score = 0;
+    sf::Text scoreText;
+
+    sf::Text hpText;
+
     Level(sf::RenderWindow& window, Loader& loader);
 
     virtual ~Level();
 
     void update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::string, bool>& keys);
     void render(sf::RenderWindow& window);
+
+    void addScore(int n);
+    void reduceHp(int n);
 };
 
 

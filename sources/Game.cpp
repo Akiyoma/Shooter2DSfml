@@ -53,6 +53,7 @@ void Game::updateInput() {
     keys["Up"] = sf::Keyboard::isKeyPressed(sf::Keyboard::Z) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
     keys["Down"] = sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
     keys["Shoot"] = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+    keys["ChangeWeapon"] = sf::Keyboard::isKeyPressed(sf::Keyboard::X);
 }
 
 void Game::update() {

@@ -7,6 +7,7 @@ void Loader::loadGame() {
     loadTwoTimePatrolEnemyTexture("../GalaxiaSpritePack/Enemy/idle_drone_orange.png");
     loadBulletTexture("../GalaxiaSpritePack/Effects/LaserBlue.png");
     loadPlayerTexture("../GalaxiaSpritePack/Enemy/idle_bomber_green.png");
+    loadFont("../arialbi.ttf");
 }
 
 void Loader::loadDefaultEnemyTexture(std::string fileName){
@@ -35,6 +36,10 @@ void Loader::loadPlayerTexture(std::string fileName) {
         std::cout << "Failed to load defaultEnemyTexture for enemy." << "\n";
     }
     playerTexture.setSmooth(false);
+}
+
+void Loader::loadFont(std::string fileName) {
+    font.loadFromFile(fileName);
 }
 
 Loader::~Loader() {
