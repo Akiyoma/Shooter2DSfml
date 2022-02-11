@@ -32,21 +32,21 @@ public:
 
     virtual ~Player();
 
-    sf::Vector2f getDirection(std::map<std::string, bool> keys);
-    void move(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys);
+    sf::Vector2f getDirection(std::map<std::string, bool>& keys);
+    void move(sf::Time deltaTime, sf::RenderTarget& window, sf::Vector2f direction);
     sf::Vector2f& normalize(sf::Vector2f vec);
 
-    void shoot(std::map<std::string, bool> keys, std::vector<Bullet*>& bullets);
+    void shoot(std::vector<Bullet*>& bullets);
     void cooldownShoot();
 
     void collisionWindow(sf::RenderTarget& window);
 
-    void changeWeapon(std::map<std::string, bool> keys);
+    void changeWeapon(std::map<std::string, bool>& keys);
 
-    void getDamage();
+    void getDamage(int n);
     void invulnerability();
 
-    void update(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool> keys, std::vector<Bullet*>& bullets);
+    void update(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool>& keys, std::vector<Bullet*>& bullets);
     void render(sf::RenderTarget& target);
 };
 

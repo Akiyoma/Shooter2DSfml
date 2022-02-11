@@ -60,7 +60,6 @@ void Enemy::update(sf::Time deltaTime, sf::RenderTarget& window, std::vector<Bul
 
     sf::Vector2f dir{0.f, 1.f};
     fire(dir, 550, bullets);
-
 }
 
 void Enemy::render(sf::RenderTarget &target) {
@@ -85,6 +84,10 @@ void Enemy::moveBetweenTwoPoint(std::vector<sf::Vector2<float>> movementPointPos
             movePointId-- ;
         }
     }
+}
+
+void Enemy::getDamage(int n) {
+    hp -= n;
 }
 
 

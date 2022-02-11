@@ -22,6 +22,8 @@ public:
 
     sf::Text hpText;
 
+    sf::Text gameOverText;
+
     Level(sf::RenderWindow& window, Loader& loader);
 
     virtual ~Level();

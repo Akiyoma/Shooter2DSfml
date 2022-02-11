@@ -11,6 +11,8 @@ public:
     sf::Sprite sprite;
     sf::Texture texture;
 
+    int hp = 3;
+
 private:
 
     int movePointId;
@@ -40,9 +42,11 @@ public:
 
     virtual ~Enemy();
 
-    void fire(sf::Vector2f dir, float speed, std::vector<Bullet *> &bullets);
+    void fire(sf::Vector2f dir, float speed, std::vector<Bullet*>& bullets);
 
     void moveBetweenTwoPoint(std::vector<sf::Vector2<float>>, sf::Time deltaTime);
+
+    void getDamage(int n);
 };
 
 

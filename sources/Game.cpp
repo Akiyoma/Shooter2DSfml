@@ -44,6 +44,12 @@ void Game::updatePollEvents() {
     while (window->pollEvent(event)){
         if (event.type == sf::Event::Closed)
             window->close();
+
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::X){
+                keys["ChangeWeapon"] = true;
+            }
+        }
     }
 }
 
@@ -53,7 +59,6 @@ void Game::updateInput() {
     keys["Up"] = sf::Keyboard::isKeyPressed(sf::Keyboard::Z) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
     keys["Down"] = sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
     keys["Shoot"] = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
-    keys["ChangeWeapon"] = sf::Keyboard::isKeyPressed(sf::Keyboard::X);
 }
 
 void Game::update() {
