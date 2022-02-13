@@ -8,6 +8,7 @@
 #include "Enemies/Enemy.h"
 #include "Enemies/TwoTimePatrolEnemy.h"
 #include "Loader.h"
+#include "GameState.h"
 
 class Level {
 public:
@@ -28,11 +29,13 @@ public:
 
     virtual ~Level();
 
-    void update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::string, bool>& keys);
+    void update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::string, bool>& keys, GameState& state);
     void render(sf::RenderWindow& window);
 
     void addScore(int n);
     void reduceHp(int n);
+
+    void gameOver();
 };
 
 

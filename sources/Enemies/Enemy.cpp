@@ -59,7 +59,7 @@ void Enemy::update(sf::Time deltaTime, sf::RenderTarget& window, std::vector<Bul
     //moveTo(sf::Vector2f(400, 100), deltaTime);
 
     sf::Vector2f dir{0.f, 1.f};
-    fire(dir, 550, bullets);
+    fire(dir, 440, bullets);
 }
 
 void Enemy::render(sf::RenderTarget &target) {

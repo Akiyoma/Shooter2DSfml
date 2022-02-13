@@ -2,7 +2,7 @@
 
 TwoTimePatrolEnemy::TwoTimePatrolEnemy(sf::Texture *texture) : Enemy(texture) {
     initSprite(texture, 1, 1);
-    setCooldownBulletTime(0.3);
+    setCooldownBulletTime(0.5f);
 }
 
 //void Enemy::update(float deltaTime, sf::RenderTarget &window, std::vector<Bullet *> &bullets) {

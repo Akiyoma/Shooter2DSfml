@@ -152,19 +152,27 @@ void Player::invulnerability() {
 
 
 void Player::update(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::string, bool>& keys, std::vector<Bullet*>& bullets) {
-    if (keys["Left"] || keys["Right"] || keys["Up"] || keys["Down"]) {
-        move(deltaTime, window, getDirection(keys));
-    }
-    collisionWindow(window);
+    if (hp > 0) {
+        if (keys["Left"] || keys["Right"] || keys["Up"] || keys["Down"]) {
+            move(deltaTime, window, getDirection(keys));
+        }
+        collisionWindow(window);
 
-    if (keys["ChangeWeapon"]) {
-        changeWeapon(keys);
-    }
+        if (keys["ChangeWeapon"]) {
+            changeWeapon(keys);
+        }
 
-    cooldownShoot();
-    if (canShoot && keys["Shoot"])
-        shoot(bullets);
-    invulnerability();
+        cooldownShoot();
+        if (canShoot && keys["Shoot"])
+            shoot(bullets);
+
+        invulnerability();
+    }
+    else {
+        sprite.setColor(sf::Color(255, 255, 255, 0));
+        isInvulnerable = true;
+        canShoot = false;
+    }
 }
 
 void Player::render(sf::RenderTarget &target) {

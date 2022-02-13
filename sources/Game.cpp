@@ -12,6 +12,7 @@ Game::Game() {
 
     initWindow();
 
+    mainMenu = new MainMenu(*window, *loader);
     level = new Level(*window, *loader);
 }
 
@@ -30,13 +31,23 @@ void Game::run() {
         update();
 
         while (updateTime >= fixedPhysic) {
-            level->update(*window, fixedPhysic, keys);
+            if (state == GameState::Menu)
+                mainMenu->update(*window, keys, state);
+            if (state == GameState::PlayLevel)
+                level->update(*window, fixedPhysic, keys, state);
             updateTime -= fixedPhysic;
         }
 
         render();
     }
 }
+
+void Game::restartLevel(GameState gameState) {
+    delete level;
+    level = new Level(*window, *loader);
+    state = gameState;
+}
+
 
 void Game::updatePollEvents() {
     sf::Event event;
@@ -48,6 +59,22 @@ void Game::updatePollEvents() {
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::X){
                 keys["ChangeWeapon"] = true;
+            }
+            if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Z){
+                keys["UpMenu"] = true;
+            }
+            if (event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::S){
+                keys["DownMenu"] = true;
+            }
+            if (event.key.code == sf::Keyboard::Enter){
+                keys["EnterMenu"] = true;
+            }
+            if (event.key.code == sf::Keyboard::Escape){
+                keys["ReturnMenu"] = true;
+            }
+            if (event.key.code == sf::Keyboard::R){
+                delete level;
+                level = new Level(*window, *loader);
             }
         }
     }
@@ -64,12 +91,20 @@ void Game::updateInput() {
 void Game::update() {
     updatePollEvents();
     updateInput();
+
+    if (state == GameState::RestartLevel)
+        restartLevel(GameState::PlayLevel);
+    if (state == GameState::GoBackMenu)
+        restartLevel(GameState::Menu);
 }
 
 void Game::render() {
     window->clear();
 
-    level->render(*window);
+    if (state == GameState::Menu)
+        mainMenu->render(*window);
+    if (state == GameState::PlayLevel)
+        level->render(*window);
 
     window->display();
 }

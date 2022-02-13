@@ -8,9 +8,9 @@
 #include "Bullet.h"
 #include "Enemies/Enemy.h"
 #include "Enemies/TwoTimePatrolEnemy.h"
-#include <list>
 #include "../headers/Level.h"
-
+#include "MainMenu.h"
+#include "GameState.h"
 
 class Game {
 private:
@@ -19,7 +19,10 @@ private:
     void initWindow();
 
     std::map<std::string, bool> keys;
+
+    MainMenu* mainMenu;
     Loader* loader;
+
     //const float deltaTime = 1.f/60.f; // 60fps
     sf::Clock clock;
     sf::Time fixedPhysic = sf::microseconds(16666);
@@ -28,11 +31,16 @@ private:
     Level* level;
 
 public:
+
+    GameState state = GameState::Menu;
+
     Game();
 
     virtual ~Game();
 
     void run();
+
+    void restartLevel(GameState gameState);
 
     void updatePollEvents();
     void updateInput();

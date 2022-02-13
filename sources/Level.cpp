@@ -25,7 +25,7 @@ Level::Level(sf::RenderWindow& window, Loader& loader) {
     gameOverText.setString("Game over");
     gameOverText.setFillColor(sf::Color(255, 255, 255, 0));
     sf::FloatRect gameOverRect = gameOverText.getLocalBounds();
-    gameOverText.setPosition(window.getSize().x / 2 - gameOverRect.width, window.getSize().y / 2 - gameOverRect.height);
+    gameOverText.setPosition(window.getSize().x / 2 - gameOverRect.width / 2, window.getSize().y / 2 - gameOverRect.height / 2);
 }
 
 Level::~Level() {
@@ -44,7 +44,7 @@ Level::~Level() {
     }
 }
 
-void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::string, bool>& keys) {
+void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::string, bool>& keys, GameState& state) {
     player->update(deltaTime, window, keys, bullets);
     for (int i = 0; i < enemies.size(); ++i) {
         enemies[i]->update(deltaTime, window , ennemiesBullets);
@@ -77,10 +77,16 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
         if (ennemiesBullets[i]->isOutsideWindow(window, ennemiesBullets)) {
             enemiesBulletsToDelete.push_back(ennemiesBullets[i]);
         }
-        else if (ennemiesBullets[i]->sprite.getGlobalBounds().intersects(player->sprite.getGlobalBounds())) {
+        else if (ennemiesBullets[i]->sprite.getGlobalBounds().intersects(player->sprite.getGlobalBounds()) && player->hp > 0) {
             enemiesBulletsToDelete.push_back(ennemiesBullets[i]);
             if (!player->isInvulnerable)
                 reduceHp(1);
+        }
+    }
+
+    for (int i = 0; i < enemies.size(); ++i) {
+        if (enemies[i]->sprite.getGlobalBounds().intersects(player->sprite.getGlobalBounds()) && !player->isInvulnerable) {
+            reduceHp(1);
         }
     }
 
@@ -106,7 +112,15 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
     enemiesBulletsToDelete.clear();
 
     if (player->hp <= 0) {
-        gameOverText.setFillColor(sf::Color::White);
+        gameOver();
+        if (keys["EnterMenu"]) {
+            keys["EnterMenu"] = false;
+            state = GameState::RestartLevel;
+        }
+        if (keys["ReturnMenu"]) {
+            keys["ReturnMenu"] = false;
+            state = GameState::GoBackMenu;
+        }
     }
 }
 
@@ -138,4 +152,8 @@ void Level::addScore(int n) {
 void Level::reduceHp(int n) {
     player->getDamage(n);
     hpText.setString("HP : " + std::to_string(player->hp));
+}
+
+void Level::gameOver() {
+    gameOverText.setFillColor(sf::Color::White);
 }

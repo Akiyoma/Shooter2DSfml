@@ -21,7 +21,7 @@ private:
     bool twoTimePattrolChecker;
 
     sf::Clock cooldownBullet;
-    float cooldownBulletTime = .2f;
+    float cooldownBulletTime;
 public:
     void setCooldownBulletTime(float cooldownBulletTime);
 

@@ -19,14 +19,14 @@ class Loader{
 
 
     private:
-        void Loader::loadDefaultEnemyTexture(std::string fileName);
-        void Loader::loadTwoTimePatrolEnemyTexture(std::string fileName);
-        void Loader::loadBulletTexture(std::string fileName);
-        void Loader::loadPlayerTexture(std::string fileName);
-        void Loader::loadFont(std::string fileName);
+        void loadDefaultEnemyTexture(std::string fileName);
+        void loadTwoTimePatrolEnemyTexture(std::string fileName);
+        void loadBulletTexture(std::string fileName);
+        void loadPlayerTexture(std::string fileName);
+        void loadFont(std::string fileName);
 
     public:
-        void Loader::loadGame();
+        void loadGame();
 
     virtual ~Loader();
 };
