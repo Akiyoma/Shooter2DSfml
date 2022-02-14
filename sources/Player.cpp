@@ -10,12 +10,10 @@ void Player::initSprite(int x , int y, sf::Texture* texture) {
 
     sprite.setOrigin(textureSizeX / 2, textureSizeY / 2);
     sprite.setPosition( x /2 , y/2);
-
-    //sprite.setColor(sf::Color::Red);
 }
 
-Player::Player(int windowSizeX, int windowSizeY, sf::Texture* texture) {
-
+Player::Player(int windowSizeX, int windowSizeY, sf::Texture* texture, sf::Texture* bulletTexture) {
+    this->bulletTexture = *bulletTexture;
     speed = 240.f;
     initSprite(windowSizeX, windowSizeY, texture);
 }
@@ -44,53 +42,18 @@ sf::Vector2f Player::getDirection(std::map<std::string, bool>& keys) {
 }
 
 void Player::move(sf::Time deltaTime, sf::RenderTarget& window, sf::Vector2f direction) {
-    sf::Vector2<float> vec = normalize(direction);
+    sf::Vector2<float> vec = normalizeVector(direction);
     sprite.move(vec * speed * deltaTime.asSeconds());
-}
-
-sf::Vector2f &Player::normalize(sf::Vector2f vec) {
-    float length = vec.x*vec.x + vec.y*vec.y;
-    if (length == 0.f)
-        return vec;
-    length = sqrt(1.f/length);
-    vec.x = vec.x * length;
-    vec.y = vec.y * length;
-    return vec;
 }
 
 void Player::shoot(std::vector<Bullet*>& bullets) {
     canShoot = false;
     cooldownBullet.restart();
-    sf::Texture textureBullet;
     if (currentWeapon == 0) {
-        sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
-        sf::Vector2f pos2{sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
-        sf::Vector2f pos3{sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
-        sf::Vector2f dir{0.f, -1.f};
-        sf::Vector2f dir2{0.f, -1.f};
-        sf::Vector2f dir3{0.f, -1.f};
-        Bullet* bullet1 = new Bullet(textureBullet, pos, dir, 560.f);
-        Bullet* bullet2 = new Bullet(textureBullet, pos2, dir2, 560.f);
-        Bullet* bullet3 = new Bullet(textureBullet, pos3, dir3, 560.f);
-        bullets.push_back(bullet1);
-        bullets.push_back(bullet2);
-        bullets.push_back(bullet3);
+        weapon1(bullets);
     }
     else if (currentWeapon == 1) {
-        sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
-        sf::Vector2f pos2{sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
-        sf::Vector2f pos3{sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
-        sf::Vector2f dir{0.f, -1.f};
-        sf::Vector2f dir2{0.5f, -0.86f};
-        sf::Vector2f dir3{-0.5f, -0.86f};
-        Bullet* bullet1 = new Bullet(textureBullet, pos, dir, 560.f);
-        Bullet* bullet2 = new Bullet(textureBullet, pos2, dir2, 560.f);
-        bullet2->sprite.rotate(30);
-        Bullet* bullet3 = new Bullet(textureBullet, pos3, dir3, 560.f);
-        bullet3->sprite.rotate(-30);
-        bullets.push_back(bullet1);
-        bullets.push_back(bullet2);
-        bullets.push_back(bullet3);
+        weapon2(bullets);
     }
 }
 
@@ -125,6 +88,41 @@ void Player::changeWeapon(std::map<std::string, bool>& keys) {
         currentWeapon = 0;
     // Change with the event
     keys["ChangeWeapon"] = false;
+}
+
+void Player::weapon1(std::vector<Bullet*>& bullets) {
+    sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f pos2{sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f pos3{sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f dir{0.f, -1.f};
+    sf::Vector2f dir2{0.f, -1.f};
+    sf::Vector2f dir3{0.f, -1.f};
+    Bullet* bullet1 = new Bullet(&bulletTexture, pos, dir, 560.f);
+    Bullet* bullet2 = new Bullet(&bulletTexture, pos2, dir2, 560.f);
+    Bullet* bullet3 = new Bullet(&bulletTexture, pos3, dir3, 560.f);
+    bullets.push_back(bullet1);
+    bullets.push_back(bullet2);
+    bullets.push_back(bullet3);
+}
+
+void Player::weapon2(std::vector<Bullet*>& bullets) {
+    sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f pos2{sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f pos3{sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
+    float angle1 = -80;
+    float angle2 = -100;
+
+    sf::Vector2f dir{0.f, -1.f};
+    sf::Vector2f dir2{degreeToVector(angle1)};
+    sf::Vector2f dir3{degreeToVector(angle2)};
+    Bullet* bullet1 = new Bullet(&bulletTexture, pos, dir, 560.f);
+    Bullet* bullet2 = new Bullet(&bulletTexture, pos2, dir2, 560.f);
+    bullet2->sprite.rotate(10);
+    Bullet* bullet3 = new Bullet(&bulletTexture, pos3, dir3, 560.f);
+    bullet3->sprite.rotate(-10);
+    bullets.push_back(bullet1);
+    bullets.push_back(bullet2);
+    bullets.push_back(bullet3);
 }
 
 void Player::getDamage(int n) {

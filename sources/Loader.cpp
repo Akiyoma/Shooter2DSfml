@@ -6,6 +6,7 @@ void Loader::loadGame() {
     loadDefaultEnemyTexture("../GalaxiaSpritePack/Enemy/idle_bomber_red.png");
     loadTwoTimePatrolEnemyTexture("../GalaxiaSpritePack/Enemy/idle_drone_orange.png");
     loadBulletTexture("../GalaxiaSpritePack/Effects/LaserBlue.png");
+    loadRedBulletTexture("../GalaxiaSpritePack/Effects/LaserRed.png");
     loadPlayerTexture("../GalaxiaSpritePack/Enemy/idle_bomber_green.png");
     loadFont("../arialbi.ttf");
 }
@@ -30,6 +31,12 @@ void Loader::loadBulletTexture(std::string fileName) {
     }
     bulletTexture.setSmooth(false);
 }
+
+void Loader::loadRedBulletTexture(std::string fileName) {
+    redBulletTexture.loadFromFile(fileName);
+    redBulletTexture.setSmooth(false);
+}
+
 
 void Loader::loadPlayerTexture(std::string fileName) {
     if (!playerTexture.loadFromFile(fileName)) {

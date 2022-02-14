@@ -1,10 +1,10 @@
 #include "../headers/Level.h"
 
 Level::Level(sf::RenderWindow& window, Loader& loader) {
-    player = new Player(window.getSize().x, window.getSize().y, &loader.playerTexture);
-    enemies.push_back(new Enemy(&loader.defaultEnemyTexture));
-    enemies.push_back(new Enemy(&loader.defaultEnemyTexture));
-    enemies.push_back(new TwoTimePatrolEnemy(&loader.twoTimePatrolEnemyTexture));
+    player = new Player(window.getSize().x, window.getSize().y, &loader.playerTexture, &loader.bulletTexture);
+    enemies.push_back(new Enemy(&loader.defaultEnemyTexture, &loader.redBulletTexture));
+    enemies.push_back(new Enemy(&loader.defaultEnemyTexture, &loader.redBulletTexture));
+    enemies.push_back(new TwoTimePatrolEnemy(&loader.twoTimePatrolEnemyTexture, &loader.redBulletTexture));
 
     enemies[0]->sprite.setPosition(500,700);
     enemies[1]->sprite.setPosition(400,400);

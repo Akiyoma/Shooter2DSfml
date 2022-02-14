@@ -10,15 +10,11 @@ public:
     sf::Sprite sprite;
 
 private:
-    sf::Texture texture;
     sf::Vector2f direction;
     float movementSpeed;
 
-    void initTexture();
-
 public:
-    Bullet();
-    Bullet(sf::Texture& texture, sf::Vector2f pos, sf::Vector2f dir, float movementSpeed);
+    Bullet(sf::Texture* texture, sf::Vector2f pos, sf::Vector2f dir, float movementSpeed);
 
     virtual ~Bullet();
 

@@ -5,15 +5,16 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "../Bullet.h"
+#include "../VectorMath.h"
 
 class Enemy {
 public:
     sf::Sprite sprite;
-    sf::Texture texture;
 
     int hp = 3;
 
 private:
+    sf::Texture bulletTexture;
 
     int movePointId;
     float speed;
@@ -26,14 +27,11 @@ public:
     void setCooldownBulletTime(float cooldownBulletTime);
 
 private:
-
     int textureSizeX;
     int textureSizeY;
 
-
-
 public:
-    Enemy(sf::Texture *texture);
+    Enemy(sf::Texture* texture, sf::Texture* bulletTexture);
 
     bool moveTo(sf::Vector2f, sf::Time deltaTime);
     void initSprite(sf::Texture* texture, float scaleX, float scaleY);

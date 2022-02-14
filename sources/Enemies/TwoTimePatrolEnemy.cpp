@@ -1,6 +1,6 @@
 #include "../../headers/Enemies/TwoTimePatrolEnemy.h"
 
-TwoTimePatrolEnemy::TwoTimePatrolEnemy(sf::Texture *texture) : Enemy(texture) {
+TwoTimePatrolEnemy::TwoTimePatrolEnemy(sf::Texture *texture, sf::Texture* bulletTexture) : Enemy(texture, bulletTexture) {
     initSprite(texture, 1, 1);
     setCooldownBulletTime(0.5f);
 }

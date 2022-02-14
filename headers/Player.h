@@ -4,13 +4,15 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Bullet.h"
+#include "VectorMath.h"
 
 class Player {
 private:
-
     float speed;
     int textureSizeX;
     int textureSizeY;
+
+    sf::Texture bulletTexture;
 
     sf::Clock cooldownBullet;
     float cooldownBulletTime = .2f;
@@ -28,7 +30,7 @@ public:
     bool isInvulnerable = false;
     int hp = 3;
 
-    Player(int windowSizeX, int windowSizeY, sf::Texture* texture);
+    Player(int windowSizeX, int windowSizeY, sf::Texture* texture, sf::Texture* bulletTexture);
 
     virtual ~Player();
 
@@ -42,6 +44,9 @@ public:
     void collisionWindow(sf::RenderTarget& window);
 
     void changeWeapon(std::map<std::string, bool>& keys);
+
+    void weapon1(std::vector<Bullet*>& bullets);
+    void weapon2(std::vector<Bullet*>& bullets);
 
     void getDamage(int n);
     void invulnerability();

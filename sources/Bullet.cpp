@@ -1,15 +1,7 @@
 #include "../headers/Bullet.h"
 
-void Bullet::initTexture() {
-    if (!texture.loadFromFile("../GalaxiaSpritePack/Effects/LaserBlue.png")) {
-        std::cout << "Failed to load defaultEnemyTexturePtr for bullet." << "\n";
-    }
-    texture.setSmooth(false);
-}
-
-Bullet::Bullet(sf::Texture& texture, sf::Vector2f pos, sf::Vector2f dir, float movementSpeed) {
-    initTexture();
-    sprite.setTexture(this->texture);
+Bullet::Bullet(sf::Texture* texture, sf::Vector2f pos, sf::Vector2f dir, float movementSpeed) {
+    sprite.setTexture(*texture);
     sprite.scale(0.5f, 0.5f);
 
     sprite.setPosition(pos);

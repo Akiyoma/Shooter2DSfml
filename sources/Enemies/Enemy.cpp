@@ -11,9 +11,7 @@ void Enemy::initSprite(sf::Texture* texture, float scaleX, float scaleY){
 
 bool Enemy::moveTo(sf::Vector2f pos, sf::Time deltaTime) {
     sf::Vector2f dir {pos.x - sprite.getPosition().x, pos.y - sprite.getPosition().y};
-    float length = dir.x*dir.x + dir.y*dir.y;
-    length = sqrt(length);
-    dir = {dir.x / length, dir.y / length};
+    dir = normalizeVector(dir);
 
     float distX = std::abs(sprite.getPosition().x - pos.x);
     float distY = std::abs(sprite.getPosition().y - pos.y);
@@ -31,9 +29,8 @@ bool Enemy::moveTo(sf::Vector2f pos, sf::Time deltaTime) {
 void Enemy::fire(sf::Vector2f dir, float speed , std::vector<Bullet*>& bullets) {
     if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
         cooldownBullet.restart();
-        sf::Texture textureBullet;
         sf::Vector2f pos{sprite.getPosition().x - textureSizeX, sprite.getPosition().y};
-        bullets.push_back(new Bullet(textureBullet, pos, dir, speed));
+        bullets.push_back(new Bullet(&bulletTexture, pos, dir, speed));
         /**
          * Creer diférent type de direction
          *      strict bottom
@@ -44,14 +41,15 @@ void Enemy::fire(sf::Vector2f dir, float speed , std::vector<Bullet*>& bullets) 
     }
 }
 
-Enemy::Enemy(sf::Texture *texture) {
+Enemy::Enemy(sf::Texture* texture, sf::Texture* bulletTexture) {
     speed = 240.f;
     movePointId = 0;
     twoTimePattrolChecker = false;
 
-    //initTexture("../GalaxiaSpritePack/Enemy/idle_bomber_red.png");
     initSprite(texture, 2, 2);
     setCooldownBulletTime(0.5f);
+
+    this->bulletTexture = *bulletTexture;
 
 }
 
