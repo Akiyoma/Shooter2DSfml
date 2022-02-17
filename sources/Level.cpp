@@ -1,14 +1,9 @@
 #include "../headers/Level.h"
 
-Level::Level(sf::RenderWindow& window, Loader& loader) {
+Level::Level(sf::RenderWindow& window, Loader& loader) : loader(loader) {
     player = new Player(window.getSize().x, window.getSize().y, &loader.playerTexture, &loader.bulletTexture);
-    enemies.push_back(new Enemy(&loader.defaultEnemyTexture, &loader.redBulletTexture));
-    enemies.push_back(new Enemy(&loader.defaultEnemyTexture, &loader.redBulletTexture));
-    enemies.push_back(new TwoTimePatrolEnemy(&loader.twoTimePatrolEnemyTexture, &loader.redBulletTexture));
 
-    enemies[0]->sprite.setPosition(500,700);
-    enemies[1]->sprite.setPosition(400,400);
-    enemies[2]->sprite.setPosition(300,500);
+    wave = new Wave0(loader, enemies, ennemiesBullets);
 
     bullets.reserve(10);
     ennemiesBullets.reserve(100);
@@ -122,10 +117,20 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
             state = GameState::GoBackMenu;
         }
     }
+
+    if (wave->endWave()) {
+        ++nWave;
+        delete wave;
+        wave = new Wave1(loader, enemies, ennemiesBullets);
+    }
 }
 
 void Level::render(sf::RenderWindow &window) {
     player->render(window);
+
+    for (auto enemy : enemies) {
+        enemy->render(window);
+    }
 
     for (auto bullet : bullets) {
         bullet->render(window);
@@ -133,10 +138,6 @@ void Level::render(sf::RenderWindow &window) {
 
     for (auto bullet : ennemiesBullets) {
         bullet->render(window);
-    }
-
-    for (auto enemy : enemies) {
-        enemy->render(window);
     }
 
     window.draw(scoreText);

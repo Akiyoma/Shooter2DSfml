@@ -12,6 +12,8 @@ class Loader{
 
     sf::Texture defaultEnemyTexture;
     sf::Texture twoTimePatrolEnemyTexture;
+    sf::Texture circleEnemyTexture;
+    sf::Texture aimEnemyTexture;
     sf::Texture bulletTexture;
     sf::Texture redBulletTexture;
     sf::Texture playerTexture;
@@ -22,7 +24,9 @@ class Loader{
     private:
         void loadDefaultEnemyTexture(std::string fileName);
         void loadTwoTimePatrolEnemyTexture(std::string fileName);
-        void loadBulletTexture(std::string fileName);
+        void loadCircleEnemyTexture(std::string fileName);
+        void loadAimEnemyTexture(std::string fileName);
+        void loadBlueBulletTexture(std::string fileName);
         void loadRedBulletTexture(std::string fileName);
         void loadPlayerTexture(std::string fileName);
         void loadFont(std::string fileName);

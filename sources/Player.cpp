@@ -91,12 +91,12 @@ void Player::changeWeapon(std::map<std::string, bool>& keys) {
 }
 
 void Player::weapon1(std::vector<Bullet*>& bullets) {
-    sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
-    sf::Vector2f pos2{sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
-    sf::Vector2f pos3{sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
-    sf::Vector2f dir{0.f, -1.f};
-    sf::Vector2f dir2{0.f, -1.f};
-    sf::Vector2f dir3{0.f, -1.f};
+    sf::Vector2f pos {sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f pos2 {sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f pos3 {sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f dir {0.f, -1.f};
+    sf::Vector2f dir2 {0.f, -1.f};
+    sf::Vector2f dir3 {0.f, -1.f};
     Bullet* bullet1 = new Bullet(&bulletTexture, pos, dir, 560.f);
     Bullet* bullet2 = new Bullet(&bulletTexture, pos2, dir2, 560.f);
     Bullet* bullet3 = new Bullet(&bulletTexture, pos3, dir3, 560.f);
@@ -106,15 +106,15 @@ void Player::weapon1(std::vector<Bullet*>& bullets) {
 }
 
 void Player::weapon2(std::vector<Bullet*>& bullets) {
-    sf::Vector2f pos{sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
-    sf::Vector2f pos2{sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
-    sf::Vector2f pos3{sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f pos {sprite.getPosition().x, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f pos2 {sprite.getPosition().x + 15, sprite.getPosition().y - textureSizeY * 2};
+    sf::Vector2f pos3 {sprite.getPosition().x - 15, sprite.getPosition().y - textureSizeY * 2};
     float angle1 = -80;
     float angle2 = -100;
 
     sf::Vector2f dir{0.f, -1.f};
-    sf::Vector2f dir2{degreeToVector(angle1)};
-    sf::Vector2f dir3{degreeToVector(angle2)};
+    sf::Vector2f dir2 {degreeToVector(angle1)};
+    sf::Vector2f dir3 {degreeToVector(angle2)};
     Bullet* bullet1 = new Bullet(&bulletTexture, pos, dir, 560.f);
     Bullet* bullet2 = new Bullet(&bulletTexture, pos2, dir2, 560.f);
     bullet2->sprite.rotate(10);

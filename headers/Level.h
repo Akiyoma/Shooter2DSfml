@@ -9,14 +9,21 @@
 #include "Enemies/TwoTimePatrolEnemy.h"
 #include "Loader.h"
 #include "GameState.h"
+#include "Waves/Wave0.h"
+#include "Waves/Wave1.h"
 
 class Level {
 public:
+    Loader& loader;
+
     Player* player;
 
     std::vector<Bullet*> bullets;
     std::vector<Bullet*> ennemiesBullets;
     std::vector<Enemy*> enemies;
+
+    int nWave = 0;
+    Wave* wave;
 
     int score = 0;
     sf::Text scoreText;

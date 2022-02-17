@@ -11,29 +11,33 @@ class Enemy {
 public:
     sf::Sprite sprite;
 
-    int hp = 3;
+    int hp = 5;
 
+    bool isAppear = false;
+
+    sf::Clock cooldownBullet;
+    float cooldownBulletTime{};
 private:
     sf::Texture bulletTexture;
 
-    int movePointId;
-    float speed;
+    int movePointId{};
+    float speed{};
 
-    bool twoTimePattrolChecker;
+    bool twoTimePattrolChecker{};
 
-    sf::Clock cooldownBullet;
-    float cooldownBulletTime;
+    sf::Vector2f initialPos;
+
 public:
     void setCooldownBulletTime(float cooldownBulletTime);
 
 private:
-    int textureSizeX;
-    int textureSizeY;
+    int textureSizeX{};
+    int textureSizeY{};
 
 public:
-    Enemy(sf::Texture* texture, sf::Texture* bulletTexture);
+    Enemy(sf::Texture* texture, sf::Texture* bulletTexture, sf::Vector2f initialPos);
 
-    bool moveTo(sf::Vector2f, sf::Time deltaTime);
+    bool moveTo(sf::Vector2f pos, float speed, sf::Time deltaTime);
     void initSprite(sf::Texture* texture, float scaleX, float scaleY);
     virtual void update(sf::Time deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets);
     void render(sf::RenderTarget& target);
@@ -45,6 +49,9 @@ public:
     void moveBetweenTwoPoint(std::vector<sf::Vector2<float>>, sf::Time deltaTime);
 
     void getDamage(int n);
+    void circleAttack(int n, float speed , std::vector<Bullet*>& bullets);
+
+    void appear(sf::Vector2f pos, sf::Time deltaTime);
 };
 
 

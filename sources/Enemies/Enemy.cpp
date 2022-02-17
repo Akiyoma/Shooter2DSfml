@@ -7,9 +7,11 @@ void Enemy::initSprite(sf::Texture* texture, float scaleX, float scaleY){
 
     textureSizeX = texture->getSize().x;
     textureSizeY = texture->getSize().y;
+
+    sprite.setOrigin(textureSizeX / scaleX, textureSizeY / scaleY);
 }
 
-bool Enemy::moveTo(sf::Vector2f pos, sf::Time deltaTime) {
+bool Enemy::moveTo(sf::Vector2f pos, float speed, sf::Time deltaTime) {
     sf::Vector2f dir {pos.x - sprite.getPosition().x, pos.y - sprite.getPosition().y};
     dir = normalizeVector(dir);
 
@@ -27,37 +29,33 @@ bool Enemy::moveTo(sf::Vector2f pos, sf::Time deltaTime) {
 
 
 void Enemy::fire(sf::Vector2f dir, float speed , std::vector<Bullet*>& bullets) {
-    if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
-        cooldownBullet.restart();
-        sf::Vector2f pos{sprite.getPosition().x - textureSizeX, sprite.getPosition().y};
-        bullets.push_back(new Bullet(&bulletTexture, pos, dir, speed));
-        /**
-         * Creer diférent type de direction
-         *      strict bottom
-         *      in player direction
-         *      Following player
-         * On pourra la définir comme type de munition dans la méthode fire d'une classe héritant de Enemy
-         */
-    }
+    sf::Vector2f pos {sprite.getPosition().x, sprite.getPosition().y};
+    bullets.push_back(new Bullet(&bulletTexture, pos, dir, speed));
+
+    //circleAttack(20, bullets);
+    /**
+     * Creer diférent type de direction
+     *      strict bottom
+     *      in player direction
+     *      Following player
+     * On pourra la définir comme type de munition dans la méthode fire d'une classe héritant de Enemy
+     */
 }
 
-Enemy::Enemy(sf::Texture* texture, sf::Texture* bulletTexture) {
-    speed = 240.f;
+Enemy::Enemy(sf::Texture* texture, sf::Texture* bulletTexture, sf::Vector2f initialPos) : initialPos(initialPos) {
+    speed = 150.f;
     movePointId = 0;
     twoTimePattrolChecker = false;
 
     initSprite(texture, 2, 2);
-    setCooldownBulletTime(0.5f);
+    setCooldownBulletTime(1.f);
 
     this->bulletTexture = *bulletTexture;
-
 }
 
 void Enemy::update(sf::Time deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets) {
-    //moveTo(sf::Vector2f(400, 100), deltaTime);
-
-    sf::Vector2f dir{0.f, 1.f};
-    fire(dir, 440, bullets);
+    if (!isAppear)
+        appear(initialPos, deltaTime);
 }
 
 void Enemy::render(sf::RenderTarget &target) {
@@ -74,11 +72,11 @@ void Enemy::moveBetweenTwoPoint(std::vector<sf::Vector2<float>> movementPointPos
 
     if (movePointId == 0 )
     {
-        if (moveTo(movementPointPositions[movePointId], deltaTime) ){
+        if (moveTo(movementPointPositions[movePointId], speed, deltaTime)){
             movePointId++ ;
         }
     } else if (movePointId == 1){
-        if (moveTo(movementPointPositions[movePointId], deltaTime) ){
+        if (moveTo(movementPointPositions[movePointId], speed, deltaTime)){
             movePointId-- ;
         }
     }
@@ -86,6 +84,24 @@ void Enemy::moveBetweenTwoPoint(std::vector<sf::Vector2<float>> movementPointPos
 
 void Enemy::getDamage(int n) {
     hp -= n;
+}
+
+void Enemy::circleAttack(int n, float speed, std::vector<Bullet *> &bullets) {
+    float angleBetweenBullet = 360.f / n;
+    float angle = 0;
+    for (int i = 0; i < n; ++i) {
+        sf::Vector2f pos {sprite.getPosition().x, sprite.getPosition().y};
+        sf::Vector2f dir {degreeToVector(angle)};
+        Bullet* bullet = new Bullet(&bulletTexture, pos, dir, speed);
+        bullet->sprite.rotate(angle+90);
+        bullets.push_back(bullet);
+        angle += angleBetweenBullet;
+    }
+}
+
+void Enemy::appear(sf::Vector2f pos, sf::Time deltaTime) {
+    if (moveTo(pos, 350, deltaTime))
+        isAppear = true;
 }
 
 

@@ -3,6 +3,10 @@
 void Game::initWindow() {
     window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Shooter 2D SFML");
     window->setVerticalSyncEnabled(true);
+
+    sf::Image icon;
+    icon.loadFromFile("../GalaxiaSpritePack/Enemy/idle_bomber_green.png");
+    window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 }
 
 Game::Game() {
