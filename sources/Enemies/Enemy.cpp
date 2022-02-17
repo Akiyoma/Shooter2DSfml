@@ -31,24 +31,14 @@ bool Enemy::moveTo(sf::Vector2f pos, float speed, sf::Time deltaTime) {
 void Enemy::fire(sf::Vector2f dir, float speed , std::vector<Bullet*>& bullets) {
     sf::Vector2f pos {sprite.getPosition().x, sprite.getPosition().y};
     bullets.push_back(new Bullet(&bulletTexture, pos, dir, speed));
-
-    //circleAttack(20, bullets);
-    /**
-     * Creer diférent type de direction
-     *      strict bottom
-     *      in player direction
-     *      Following player
-     * On pourra la définir comme type de munition dans la méthode fire d'une classe héritant de Enemy
-     */
 }
 
 Enemy::Enemy(sf::Texture* texture, sf::Texture* bulletTexture, sf::Vector2f initialPos) : initialPos(initialPos) {
     speed = 150.f;
     movePointId = 0;
-    twoTimePattrolChecker = false;
 
     initSprite(texture, 2, 2);
-    setCooldownBulletTime(1.f);
+    setCoolDownBulletTime(1.f);
 
     this->bulletTexture = *bulletTexture;
 }
@@ -62,8 +52,8 @@ void Enemy::render(sf::RenderTarget &target) {
     target.draw(sprite);
 }
 
-void Enemy::setCooldownBulletTime(float cooldownBulletTime) {
-    Enemy::cooldownBulletTime = cooldownBulletTime;
+void Enemy::setCoolDownBulletTime(float coolDownBulletTime) {
+    Enemy::coolDownBulletTime = coolDownBulletTime;
 }
 
 Enemy::~Enemy() {}

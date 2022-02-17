@@ -48,7 +48,7 @@ void Player::move(sf::Time deltaTime, sf::RenderTarget& window, sf::Vector2f dir
 
 void Player::shoot(std::vector<Bullet*>& bullets) {
     canShoot = false;
-    cooldownBullet.restart();
+    coolDownBullet.restart();
     if (currentWeapon == 0) {
         weapon1(bullets);
     }
@@ -57,8 +57,8 @@ void Player::shoot(std::vector<Bullet*>& bullets) {
     }
 }
 
-void Player::cooldownShoot() {
-    if (!canShoot && cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
+void Player::coolDownShoot() {
+    if (!canShoot && coolDownBullet.getElapsedTime().asSeconds() > coolDownBulletTime) {
         canShoot = true;
     }
 }
@@ -160,7 +160,7 @@ void Player::update(sf::Time deltaTime, sf::RenderTarget& window, std::map<std::
             changeWeapon(keys);
         }
 
-        cooldownShoot();
+        coolDownShoot();
         if (canShoot && keys["Shoot"])
             shoot(bullets);
 

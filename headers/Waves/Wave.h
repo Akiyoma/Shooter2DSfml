@@ -14,8 +14,6 @@ private:
     std::vector<Bullet*>& bullets;
     std::vector<Enemy*>& enemies;
 
-    //sf::Clock time;
-
 public:
     Wave(Loader& loader, std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets);
 

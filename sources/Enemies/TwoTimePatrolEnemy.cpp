@@ -1,7 +1,7 @@
 #include "../../headers/Enemies/TwoTimePatrolEnemy.h"
 
 TwoTimePatrolEnemy::TwoTimePatrolEnemy(sf::Texture *texture, sf::Texture* bulletTexture, sf::Vector2f initialPos) : Enemy(texture, bulletTexture, initialPos) {
-    setCooldownBulletTime(1.f);
+    setCoolDownBulletTime(1.f);
     hp = 15;
 }
 
@@ -13,8 +13,8 @@ void TwoTimePatrolEnemy::update(sf::Time deltaTime, sf::RenderTarget &window, st
     Enemy::update(deltaTime, window, bullets);
 
     if (isAppear) {
-        if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
-            cooldownBullet.restart();
+        if (coolDownBullet.getElapsedTime().asSeconds() > coolDownBulletTime) {
+            coolDownBullet.restart();
             sf::Vector2f dir{0.f, 1.f};
             fire(dir, 300, bullets);
         }
@@ -27,9 +27,3 @@ void TwoTimePatrolEnemy::update(sf::Time deltaTime, sf::RenderTarget &window, st
         moveBetweenTwoPoint(movementPoints, deltaTime);
     }
 }
-
-/*void TwoTimePatrolEnemy::MovementPattern(float speed, float interval, std::vector<sf::Vector2<float>> movePointId) {
-
-
-
-}*/

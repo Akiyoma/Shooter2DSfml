@@ -1,7 +1,7 @@
 #include "../../headers/Enemies/CircleEnemy.h"
 
 CircleEnemy::CircleEnemy(sf::Texture *texture, sf::Texture* bulletTexture, sf::Vector2f initialPos) : Enemy(texture, bulletTexture, initialPos) {
-    setCooldownBulletTime(1.5f);
+    setCoolDownBulletTime(1.5f);
     hp = 20;
 }
 
@@ -13,8 +13,8 @@ void CircleEnemy::update(sf::Time deltaTime, sf::RenderTarget &window, std::vect
     Enemy::update(deltaTime, window, bullets);
 
     if (isAppear) {
-        if (cooldownBullet.getElapsedTime().asSeconds() > cooldownBulletTime) {
-            cooldownBullet.restart();
+        if (coolDownBullet.getElapsedTime().asSeconds() > coolDownBulletTime) {
+            coolDownBullet.restart();
             int n = 6 + (rand() % 15);
             circleAttack(n, 80, bullets);
         }

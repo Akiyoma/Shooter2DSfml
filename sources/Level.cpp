@@ -3,10 +3,10 @@
 Level::Level(sf::RenderWindow& window, Loader& loader) : loader(loader) {
     player = new Player(window.getSize().x, window.getSize().y, &loader.playerTexture, &loader.bulletTexture);
 
-    wave = new Wave0(loader, enemies, ennemiesBullets);
+    wave = new Wave0(loader, enemies, enemiesBullets);
 
     bullets.reserve(10);
-    ennemiesBullets.reserve(100);
+    enemiesBullets.reserve(100);
 
     scoreText.setFont(loader.font);
     scoreText.setString("Score : 0");
@@ -30,7 +30,7 @@ Level::~Level() {
         delete bullet;
     }
 
-    for (auto bullet : ennemiesBullets) {
+    for (auto bullet : enemiesBullets) {
         delete bullet;
     }
 
@@ -42,7 +42,7 @@ Level::~Level() {
 void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::string, bool>& keys, GameState& state) {
     player->update(deltaTime, window, keys, bullets);
     for (int i = 0; i < enemies.size(); ++i) {
-        enemies[i]->update(deltaTime, window , ennemiesBullets);
+        enemies[i]->update(deltaTime, window , enemiesBullets);
     }
 
     std::vector<Bullet*> bulletsToDelete;
@@ -67,13 +67,13 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
         }
     }
 
-    for (int i = 0; i < ennemiesBullets.size(); ++i) {
-        ennemiesBullets[i]->update(deltaTime, window);
-        if (ennemiesBullets[i]->isOutsideWindow(window, ennemiesBullets)) {
-            enemiesBulletsToDelete.push_back(ennemiesBullets[i]);
+    for (int i = 0; i < enemiesBullets.size(); ++i) {
+        enemiesBullets[i]->update(deltaTime, window);
+        if (enemiesBullets[i]->isOutsideWindow(window, enemiesBullets)) {
+            enemiesBulletsToDelete.push_back(enemiesBullets[i]);
         }
-        else if (ennemiesBullets[i]->sprite.getGlobalBounds().intersects(player->sprite.getGlobalBounds()) && player->hp > 0) {
-            enemiesBulletsToDelete.push_back(ennemiesBullets[i]);
+        else if (enemiesBullets[i]->sprite.getGlobalBounds().intersects(player->sprite.getGlobalBounds()) && player->hp > 0) {
+            enemiesBulletsToDelete.push_back(enemiesBullets[i]);
             if (!player->isInvulnerable)
                 reduceHp(1);
         }
@@ -102,7 +102,7 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
 
     // Delete enemies bullets
     for (auto bullet: enemiesBulletsToDelete) {
-        ennemiesBullets.erase(std::remove(ennemiesBullets.begin(), ennemiesBullets.end(), bullet), ennemiesBullets.end());
+        enemiesBullets.erase(std::remove(enemiesBullets.begin(), enemiesBullets.end(), bullet), enemiesBullets.end());
     }
     enemiesBulletsToDelete.clear();
 
@@ -121,7 +121,7 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
     if (wave->endWave()) {
         ++nWave;
         delete wave;
-        wave = new Wave1(loader, enemies, ennemiesBullets);
+        wave = new Wave1(loader, enemies, enemiesBullets);
     }
 }
 
@@ -136,7 +136,7 @@ void Level::render(sf::RenderWindow &window) {
         bullet->render(window);
     }
 
-    for (auto bullet : ennemiesBullets) {
+    for (auto bullet : enemiesBullets) {
         bullet->render(window);
     }
 

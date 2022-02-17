@@ -12,5 +12,4 @@ public:
     void update(sf::Time deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets);
 };
 
-
 #endif //SHOOTER2DSFML_CIRCLEENEMY_H

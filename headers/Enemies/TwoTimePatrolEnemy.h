@@ -9,8 +9,6 @@
 
 class TwoTimePatrolEnemy : public Enemy{
 public:
-    sf::Vector2f dest1;
-    sf::Vector2f dest2;
 
     TwoTimePatrolEnemy(sf::Texture *texture, sf::Texture* bulletTexture, sf::Vector2f initialPos);
     void update(sf::Time deltaTime, sf::RenderTarget& window, std::vector<Bullet*>& bullets);

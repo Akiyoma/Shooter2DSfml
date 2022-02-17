@@ -14,8 +14,8 @@ private:
 
     sf::Texture bulletTexture;
 
-    sf::Clock cooldownBullet;
-    float cooldownBulletTime = .2f;
+    sf::Clock coolDownBullet;
+    float coolDownBulletTime = .2f;
     bool canShoot = true;
 
     int currentWeapon = 0;
@@ -39,7 +39,7 @@ public:
     sf::Vector2f& normalize(sf::Vector2f vec);
 
     void shoot(std::vector<Bullet*>& bullets);
-    void cooldownShoot();
+    void coolDownShoot();
 
     void collisionWindow(sf::RenderTarget& window);
 

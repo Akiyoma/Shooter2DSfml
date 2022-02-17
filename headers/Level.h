@@ -19,7 +19,7 @@ public:
     Player* player;
 
     std::vector<Bullet*> bullets;
-    std::vector<Bullet*> ennemiesBullets;
+    std::vector<Bullet*> enemiesBullets;
     std::vector<Enemy*> enemies;
 
     int nWave = 0;
