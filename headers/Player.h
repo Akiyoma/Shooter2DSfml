@@ -28,7 +28,7 @@ public:
     sf::Sprite sprite;
 
     bool isInvulnerable = false;
-    int hp = 3;
+    int hp = 5;
 
     Player(int windowSizeX, int windowSizeY, sf::Texture* texture, sf::Texture* bulletTexture);
 

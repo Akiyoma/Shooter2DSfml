@@ -3,7 +3,7 @@
 Level::Level(sf::RenderWindow& window, Loader& loader) : loader(loader) {
     player = new Player(window.getSize().x, window.getSize().y, &loader.playerTexture, &loader.bulletTexture);
 
-    wave = new Wave0(loader, enemies, enemiesBullets);
+    wave = new Wave(loader, enemies, enemiesBullets);
 
     bullets.reserve(10);
     enemiesBullets.reserve(100);
@@ -118,11 +118,7 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
         }
     }
 
-    if (wave->endWave()) {
-        ++nWave;
-        delete wave;
-        wave = new Wave1(loader, enemies, enemiesBullets);
-    }
+    wave->update();
 }
 
 void Level::render(sf::RenderWindow &window) {

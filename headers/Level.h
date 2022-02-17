@@ -9,8 +9,7 @@
 #include "Enemies/TwoTimePatrolEnemy.h"
 #include "Loader.h"
 #include "GameState.h"
-#include "Waves/Wave0.h"
-#include "Waves/Wave1.h"
+#include "Wave.h"
 
 class Level {
 public:
