@@ -15,8 +15,8 @@ void CircleEnemy::update(sf::Time deltaTime, sf::RenderTarget &window, std::vect
     if (isAppear) {
         if (coolDownBullet.getElapsedTime().asSeconds() > coolDownBulletTime) {
             coolDownBullet.restart();
-            int n = 6 + (rand() % 15);
-            circleAttack(n, 80, bullets);
+            int n = 6 + (rand() % 7);
+            circleAttack(n, 70, bullets);
         }
     }
 }

@@ -10,6 +10,7 @@
 #include "Loader.h"
 #include "GameState.h"
 #include "Wave.h"
+#include "GameOverMenu.h"
 
 class Level {
 public:
@@ -21,7 +22,6 @@ public:
     std::vector<Bullet*> enemiesBullets;
     std::vector<Enemy*> enemies;
 
-    int nWave = 0;
     Wave* wave;
 
     int score = 0;
@@ -29,7 +29,7 @@ public:
 
     sf::Text hpText;
 
-    sf::Text gameOverText;
+    GameOverMenu* gameOverMenu;
 
     Level(sf::RenderWindow& window, Loader& loader);
 

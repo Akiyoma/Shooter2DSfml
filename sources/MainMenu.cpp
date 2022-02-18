@@ -22,6 +22,13 @@ MainMenu::MainMenu(sf::RenderWindow& window, Loader& loader) {
     quitText.setCharacterSize(40);
     sf::FloatRect quitRect = quitText.getLocalBounds();
     quitText.setPosition(window.getSize().x / 2 - quitRect.width / 2, 500 - quitRect.height / 2);
+
+    enterText.setFont(loader.font);
+    enterText.setString("Enter : Confirm");
+    enterText.setFillColor(sf::Color::White);
+    enterText.setCharacterSize(30);
+    sf::FloatRect enterRect = enterText.getLocalBounds();
+    enterText.setPosition(window.getSize().x - enterRect.width-10, window.getSize().y - 40);
 }
 
 MainMenu::~MainMenu() {
@@ -59,4 +66,5 @@ void MainMenu::render(sf::RenderWindow &window) {
     window.draw(titleText);
     window.draw(playText);
     window.draw(quitText);
+    window.draw(enterText);
 }

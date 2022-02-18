@@ -16,11 +16,7 @@ Level::Level(sf::RenderWindow& window, Loader& loader) : loader(loader) {
     hpText.setString("HP : " + std::to_string(player->hp));
     hpText.setPosition(window.getSize().x - 100, 0);
 
-    gameOverText.setFont(loader.font);
-    gameOverText.setString("Game over");
-    gameOverText.setFillColor(sf::Color(255, 255, 255, 0));
-    sf::FloatRect gameOverRect = gameOverText.getLocalBounds();
-    gameOverText.setPosition(window.getSize().x / 2 - gameOverRect.width / 2, window.getSize().y / 2 - gameOverRect.height / 2);
+    gameOverMenu = new GameOverMenu(window, loader);
 }
 
 Level::~Level() {
@@ -107,15 +103,7 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
     enemiesBulletsToDelete.clear();
 
     if (player->hp <= 0) {
-        gameOver();
-        if (keys["EnterMenu"]) {
-            keys["EnterMenu"] = false;
-            state = GameState::RestartLevel;
-        }
-        if (keys["ReturnMenu"]) {
-            keys["ReturnMenu"] = false;
-            state = GameState::GoBackMenu;
-        }
+        gameOverMenu->update(window, keys, state);
     }
 
     wave->update();
@@ -138,7 +126,10 @@ void Level::render(sf::RenderWindow &window) {
 
     window.draw(scoreText);
     window.draw(hpText);
-    window.draw(gameOverText);
+
+    if (player->hp <= 0) {
+        gameOverMenu->render(window);
+    }
 }
 
 void Level::addScore(int n) {
@@ -152,5 +143,5 @@ void Level::reduceHp(int n) {
 }
 
 void Level::gameOver() {
-    gameOverText.setFillColor(sf::Color::White);
+
 }

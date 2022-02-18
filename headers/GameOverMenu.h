@@ -1,28 +1,27 @@
-#ifndef SHOOTER2DSFML_MAINMENU_H
-#define SHOOTER2DSFML_MAINMENU_H
-
+#ifndef SHOOTER2DSFML_GAMEOVERMENU_H
+#define SHOOTER2DSFML_GAMEOVERMENU_H
 
 #include <SFML/Graphics.hpp>
 #include "Loader.h"
 #include "GameState.h"
 
-class MainMenu {
+class GameOverMenu {
 private:
     sf::Text titleText;
-    sf::Text playText;
-    sf::Text quitText;
+    sf::Text retryText;
+    sf::Text menuText;
     sf::Text enterText;
 
     int currentPos = 0;
 
 public:
-    MainMenu(sf::RenderWindow& window, Loader& loader);
+    GameOverMenu(sf::RenderWindow& window, Loader& loader);
 
-    virtual ~MainMenu();
+    virtual ~GameOverMenu();
 
     void update(sf::RenderWindow& window, std::map<std::string, bool>& keys, GameState& state);
     void render(sf::RenderWindow& window);
 };
 
 
-#endif //SHOOTER2DSFML_MAINMENU_H
+#endif //SHOOTER2DSFML_GAMEOVERMENU_H
