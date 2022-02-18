@@ -40,8 +40,6 @@ public:
 
     void addScore(int n);
     void reduceHp(int n);
-
-    void gameOver();
 };
 
 

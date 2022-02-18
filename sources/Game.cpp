@@ -35,7 +35,7 @@ void Game::run() {
         update();
 
         while (updateTime >= fixedPhysic) {
-            if (state == GameState::Menu)
+            if (state == GameState::Menu || state == GameState::Commands)
                 mainMenu->update(*window, keys, state);
             if (state == GameState::PlayLevel)
                 level->update(*window, fixedPhysic, keys, state);
@@ -105,8 +105,8 @@ void Game::update() {
 void Game::render() {
     window->clear();
 
-    if (state == GameState::Menu)
-        mainMenu->render(*window);
+    if (state == GameState::Menu || state == GameState::Commands)
+        mainMenu->render(*window, state);
     if (state == GameState::PlayLevel)
         level->render(*window);
 

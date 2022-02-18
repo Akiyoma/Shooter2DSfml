@@ -10,8 +10,13 @@ class MainMenu {
 private:
     sf::Text titleText;
     sf::Text playText;
+    sf::Text commandText;
     sf::Text quitText;
     sf::Text enterText;
+
+    sf::Text movementText;
+    sf::Text weaponText;
+    sf::Text returnText;
 
     int currentPos = 0;
 
@@ -21,7 +26,7 @@ public:
     virtual ~MainMenu();
 
     void update(sf::RenderWindow& window, std::map<std::string, bool>& keys, GameState& state);
-    void render(sf::RenderWindow& window);
+    void render(sf::RenderWindow& window, GameState& state);
 };
 
 

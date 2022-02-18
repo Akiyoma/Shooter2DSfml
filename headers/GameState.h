@@ -5,7 +5,8 @@ enum class GameState {
     Menu,
     PlayLevel,
     RestartLevel,
-    GoBackMenu
+    GoBackMenu,
+    Commands
 };
 
 #endif //SHOOTER2DSFML_GAMESTATE_H

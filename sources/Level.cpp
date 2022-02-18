@@ -141,7 +141,3 @@ void Level::reduceHp(int n) {
     player->getDamage(n);
     hpText.setString("HP : " + std::to_string(player->hp));
 }
-
-void Level::gameOver() {
-
-}
