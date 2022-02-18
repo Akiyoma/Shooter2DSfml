@@ -7,6 +7,7 @@ void Game::initWindow() {
     sf::Image icon;
     icon.loadFromFile("../GalaxiaSpritePack/Enemy/idle_bomber_green.png");
     window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
 }
 
 Game::Game() {

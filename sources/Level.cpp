@@ -17,6 +17,7 @@ Level::Level(sf::RenderWindow& window, Loader& loader) : loader(loader) {
     hpText.setPosition(window.getSize().x - 100, 0);
 
     gameOverMenu = new GameOverMenu(window, loader);
+
 }
 
 Level::~Level() {
@@ -110,7 +111,13 @@ void Level::update(sf::RenderWindow& window, sf::Time deltaTime, std::map<std::s
 }
 
 void Level::render(sf::RenderWindow &window) {
+
+    sf::Sprite s(loader.background);
+    window.draw(s);
+
     player->render(window);
+
+
 
     for (auto enemy : enemies) {
         enemy->render(window);

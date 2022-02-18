@@ -11,6 +11,8 @@ void Loader::loadGame() {
     loadRedBulletTexture("../GalaxiaSpritePack/Effects/LaserRed.png");
     loadPlayerTexture("../GalaxiaSpritePack/Enemy/idle_bomber_green.png");
     loadFont("../arialbi.ttf");
+    loadBackGround("../GalaxiaSpritePack/background.jfif");
+
 }
 
 void Loader::loadDefaultEnemyTexture(std::string fileName){
@@ -59,6 +61,10 @@ void Loader::loadPlayerTexture(std::string fileName) {
 
 void Loader::loadFont(std::string fileName) {
     font.loadFromFile(fileName);
+}
+
+void Loader::loadBackGround(std::string fileName) {
+    background.loadFromFile(fileName);
 }
 
 Loader::~Loader() {

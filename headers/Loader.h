@@ -17,6 +17,7 @@ class Loader{
     sf::Texture bulletTexture;
     sf::Texture redBulletTexture;
     sf::Texture playerTexture;
+    sf::Texture background;
 
     sf::Font font;
 
@@ -30,6 +31,7 @@ class Loader{
         void loadRedBulletTexture(std::string fileName);
         void loadPlayerTexture(std::string fileName);
         void loadFont(std::string fileName);
+        void loadBackGround(std::string fileName);
 
     public:
         void loadGame();
