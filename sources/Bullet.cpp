@@ -2,7 +2,7 @@
 
 Bullet::Bullet(sf::Texture* texture, sf::Vector2f pos, sf::Vector2f dir, float movementSpeed) {
     sprite.setTexture(*texture);
-    sprite.scale(0.5f, 0.5f);
+    sprite.scale(0.4f, 0.4f);
 
     sf::Vector2u textureSize = sprite.getTexture()->getSize();
     sprite.setOrigin(textureSize.x / 2, textureSize.y / 2);

@@ -77,10 +77,6 @@ void Game::updatePollEvents() {
             if (event.key.code == sf::Keyboard::Escape){
                 keys["ReturnMenu"] = true;
             }
-            if (event.key.code == sf::Keyboard::R){
-                delete level;
-                level = new Level(*window, *loader);
-            }
         }
     }
 }
